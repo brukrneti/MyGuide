@@ -25,7 +25,7 @@ public class ZahtjevZaRegistraciju extends StringRequest{
         params.put("email", email);
         params.put("korisnicko_ime",korisnicko_ime);
         params.put("lozinka", lozinka);
-        params.put("tip_korisnika", tip_korisika + "");
+        params.put("id_tip_korisnika", tip_korisika + "");
     }
 
     @Override

@@ -43,7 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
                 final String korisnickoIme = tekorisnickoIme.getText().toString();
                 final String email = teEmail.getText().toString();
                 final String lozinka = teLozinka.getText().toString();
-                final Integer tipKorsinika = Integer.parseInt(teTipKorisnika.getText().toString());
+                final Integer tipKorisnika = Integer.parseInt(teTipKorisnika.getText().toString());
+
 
 
                 Response.Listener<String> responseListener = new Response.Listener<String>(){
@@ -69,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 };
 
-                ZahtjevZaRegistraciju zahtjevZaRegistraciju = new ZahtjevZaRegistraciju(ime,prezime,email,korisnickoIme,lozinka,tipKorsinika,responseListener);
+                ZahtjevZaRegistraciju zahtjevZaRegistraciju = new ZahtjevZaRegistraciju(ime,prezime,email,korisnickoIme,lozinka,tipKorisnika,responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(zahtjevZaRegistraciju);
             }
