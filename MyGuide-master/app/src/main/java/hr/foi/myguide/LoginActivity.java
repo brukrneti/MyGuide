@@ -30,10 +30,10 @@ public class LoginActivity extends AppCompatActivity {
         final TextView registracija = (TextView) findViewById(R.id.idRegistracija);
 
         registracija.setOnClickListener(new View.OnClickListener(){
-        @Override
-        public void onClick(View v)  {
-            Intent registracijaIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-            LoginActivity.this.startActivity(registracijaIntent);
+            @Override
+            public void onClick(View v)  {
+                Intent registracijaIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                LoginActivity.this.startActivity(registracijaIntent);
             }
         });
         prijaviSe.setOnClickListener(new View.OnClickListener() {
