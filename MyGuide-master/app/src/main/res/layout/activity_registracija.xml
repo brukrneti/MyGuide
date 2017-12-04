@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hr.foi.myguide.Registracija"
+    tools:layout_editor_absoluteY="25dp"
+    tools:layout_editor_absoluteX="0dp">
+
+    <EditText
+        android:id="@+id/etFirstNameReg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="First name"
+        android:inputType="textPersonName"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="15dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etLastNameReg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Last name"
+        android:inputType="textPersonName"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="11dp"
+        app:layout_constraintTop_toBottomOf="@+id/etFirstNameReg"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <EditText
+        android:id="@+id/etUsernameReg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/etLastNameReg"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/etLastNameReg"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/etLastNameReg" />
+
+    <EditText
+        android:id="@+id/etEmailReg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        app:layout_constraintLeft_toLeftOf="@+id/etUsernameReg"
+        app:layout_constraintRight_toRightOf="@+id/etUsernameReg"
+        app:layout_constraintTop_toBottomOf="@+id/etUsernameReg"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <EditText
+        android:id="@+id/etPasswordReg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPersonName"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/etEmailReg"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/etEmailReg"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/etEmailReg" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/ergRadioGroup"
+        android:layout_marginTop="41dp"
+        app:layout_constraintTop_toBottomOf="@+id/ergRadioGroup"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/ergRadioGroup"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <RadioGroup
+        android:id="@+id/ergRadioGroup"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/etPasswordReg"
+        android:layout_marginTop="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordReg"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/etPasswordReg">
+
+
+        <RadioButton
+            android:id="@+id/erbGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="rbclick"
+            android:layout_weight="1"
+            android:text="Guide" />
+
+        <RadioButton
+            android:id="@+id/erbTourist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="rbclick"
+            android:layout_weight="1"
+            android:text="Tourist" />
+    </RadioGroup>
+
+</android.support.constraint.ConstraintLayout>
