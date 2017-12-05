@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context="hr.foi.myguide.Registracija"
     tools:layout_editor_absoluteY="25dp"
-    tools:layout_editor_absoluteX="0dp">
+    tools:layout_editor_absoluteX="0dp"
+    android:background="@drawable/regandlogbg">
 
     <EditText
         android:id="@+id/etFirstNameReg"
