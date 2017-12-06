@@ -1,8 +1,10 @@
 package hr.foi.myguide;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +17,16 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import hr.foi.webservice.ZahtjevZaPrijavu;
+import hr.foi.webservice.ZahtjevZaTuru;
+
 public class PocetnaStranica extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -22,7 +34,38 @@ public class PocetnaStranica extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pocetna_stranica);
-        
+
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    JSONObject dataJSON = jsonResponse.getJSONObject("data");
+                    boolean success = dataJSON.getBoolean("success");
+                    if(success){
+
+                    }else{
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        ZahtjevZaTuru zahtjevZaTuru = new ZahtjevZaTuru(responseListener);
+        RequestQueue queue = Volley.newRequestQueue(PocetnaStranica.this);
+        queue.add(zahtjevZaTuru);
+
+
+
+
+
+
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
