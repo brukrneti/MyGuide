@@ -1,5 +1,12 @@
 package hr.foi.database.entities;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Mateo on 6.12.2017..
  */
@@ -13,6 +20,11 @@ public class Tour {
     public Integer id_korisnik;
     public Integer aktivan;
 
+    public List<Tour> toursList = new ArrayList<Tour>();
+
+    public Tour () {
+
+    }
     public Tour(Integer id_tura, String naziv, String opis, String img_name, String img_path, Integer id_korisnik, Integer aktivan) {
         this.id_tura = id_tura;
         this.naziv = naziv;
@@ -77,5 +89,29 @@ public class Tour {
 
     public void setAktivan(Integer aktivan) {
         this.aktivan = aktivan;
+    }
+
+    public void fetchTours(JSONArray jsonData) {
+        for (int i = 0; i < jsonData.length(); i++) {
+            //JSONObject currentRow = tours.getJSONObject(i).getInt("id_tura");
+            JSONObject currentTour = null;
+            try {
+                currentTour = jsonData.getJSONObject(i);
+                Tour tourInstance = new Tour();
+                tourInstance.id_korisnik = currentTour.getInt("id_tura");
+                tourInstance.naziv = currentTour.getString("naziv");
+                tourInstance.opis = currentTour.getString("opis");
+                tourInstance.img_name = currentTour.getString("img_name");
+                tourInstance.img_path = currentTour.getString("img_path");
+                tourInstance.id_korisnik = currentTour.getInt("id_korisnik");
+                tourInstance.aktivan = currentTour.getInt("aktivan");
+
+                toursList.add(tourInstance);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }

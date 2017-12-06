@@ -50,21 +50,28 @@ public class PocetnaStranica extends AppCompatActivity
                     boolean success = dataJSON.getBoolean("success");
                     if(success){
                         JSONArray tours= dataJSON.getJSONArray("rows");
+                        //List<Tour> toursList = new ArrayList<Tour>();
+
+                        Tour tourInstance = new Tour();
+                        tourInstance.fetchTours(tours);
+
                         List<Tour> toursList = new ArrayList<Tour>();
+                        toursList = tourInstance.toursList;
 
-                        for (int i = 0; i < tours.length(); i++) {
-                            //JSONObject currentRow = tours.getJSONObject(i).getInt("id_tura");
-                            JSONObject tour =  tours.getJSONObject(i);
 
-                            Tour tura = new Tour(tour.getInt("id_tura"),
-                                    tour.getString("naziv"),
-                                    tour.getString("opis"),
-                                    tour.getString("img_name"),
-                                    tour.getString("img_path"),
-                                    tour.getInt("id_korisnik"),
-                                    tour.getInt("aktivan"));
-                            toursList.add(tura);
-                        }
+//                        for (int i = 0; i < tours.length(); i++) {
+//                            //JSONObject currentRow = tours.getJSONObject(i).getInt("id_tura");
+//                            JSONObject tour =  tours.getJSONObject(i);
+//
+//                            Tour tura = new Tour(tour.getInt("id_tura"),
+//                                    tour.getString("naziv"),
+//                                    tour.getString("opis"),
+//                                    tour.getString("img_name"),
+//                                    tour.getString("img_path"),
+//                                    tour.getInt("id_korisnik"),
+//                                    tour.getInt("aktivan"));
+//                            toursList.add(tura);
+//                        }
                         JSONObject dadata = jsonResponse.getJSONObject("data");
 
 
