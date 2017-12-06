@@ -5,13 +5,13 @@ package hr.foi.database.entities;
  */
 
 public class Tour {
-    Integer id_tura;
-    String naziv;
-    String opis;
-    String img_name;
-    String img_path;
-    Integer id_korisnik;
-    Integer aktivan;
+    public Integer id_tura;
+    public String naziv;
+    public String opis;
+    public String img_name;
+    public String img_path;
+    public Integer id_korisnik;
+    public Integer aktivan;
 
     public Tour(Integer id_tura, String naziv, String opis, String img_name, String img_path, Integer id_korisnik, Integer aktivan) {
         this.id_tura = id_tura;

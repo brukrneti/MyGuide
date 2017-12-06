@@ -21,9 +21,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import hr.foi.database.entities.Tour;
 import hr.foi.webservice.ZahtjevZaPrijavu;
 import hr.foi.webservice.ZahtjevZaTuru;
 
@@ -44,7 +49,28 @@ public class PocetnaStranica extends AppCompatActivity
                     JSONObject dataJSON = jsonResponse.getJSONObject("data");
                     boolean success = dataJSON.getBoolean("success");
                     if(success){
+                        JSONArray tours= dataJSON.getJSONArray("rows");
+                        List<Tour> toursList = new ArrayList<Tour>();
 
+                        for (int i = 0; i < tours.length(); i++) {
+                            //JSONObject currentRow = tours.getJSONObject(i).getInt("id_tura");
+                            JSONObject tour =  tours.getJSONObject(i);
+
+                            Tour tura = new Tour(tour.getInt("id_tura"),
+                                    tour.getString("naziv"),
+                                    tour.getString("opis"),
+                                    tour.getString("img_name"),
+                                    tour.getString("img_path"),
+                                    tour.getInt("id_korisnik"),
+                                    tour.getInt("aktivan"));
+                            toursList.add(tura);
+                        }
+                        JSONObject dadata = jsonResponse.getJSONObject("data");
+
+
+                        //Tour tura = new Tour();
+
+                        //List<Tour> tourList= new Gson().fromJson(tours.toString(), new TypeToken<ArrayList<Tour>>(){}.getType());
                     }else{
 
                     }
