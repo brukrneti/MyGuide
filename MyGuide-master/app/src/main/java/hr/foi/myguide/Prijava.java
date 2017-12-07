@@ -17,9 +17,12 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
+import hr.foi.database.entities.Korisnik;
 import hr.foi.webservice.ZahtjevZaPrijavu;
 
-public class Prijava extends AppCompatActivity {
+public class Prijava extends AppCompatActivity implements  Serializable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,8 @@ public class Prijava extends AppCompatActivity {
         final EditText etPassword= (EditText) findViewById(R.id.etPasswordLogin);
         final Button btnLogin = (Button) findViewById(R.id.btnLogin);
         final TextView tvSignUp = (TextView) findViewById(R.id.tvSignUp);
+
+        final SessionManager sessionManager = new SessionManager(this);
 
         tvSignUp.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -43,6 +48,7 @@ public class Prijava extends AppCompatActivity {
             public void onClick(View v) {
                 final String username = etUsername.getText().toString();
                 final String password = etPassword.getText().toString();
+
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -52,13 +58,19 @@ public class Prijava extends AppCompatActivity {
                             //boolean success = result.contains("success");
                             JSONObject dataJSON = jsonResponse.getJSONObject("data");
                             boolean success = dataJSON.getBoolean("success");
+
                             if(success){
                                 //String name = jsonResponse.getString("ime");
-                                //String email = jsonResponse.getString("email");
+                                Korisnik korisnik = new Korisnik(dataJSON.getInt("id_korisnik"),
+                                        dataJSON.getString("ime"),
+                                        dataJSON.getString("prezime"),
+                                        dataJSON.getString("email"),
+                                        dataJSON.getString("korisnicko_ime"),
+                                        dataJSON.getInt("id_tip_korisnika"));
+
+
+                                sessionManager.createLoginSession(korisnik);
                                 Intent intent = new Intent(Prijava.this, PocetnaStranica.class);
-                               // intent.putExtra("ime", name);
-                                intent.putExtra("korisnicko_ime", username);
-                                //intent.putExtra("email",email);
                                 Prijava.this.startActivity(intent);
                             }else{
                                 AlertDialog.Builder builder = new AlertDialog.Builder(Prijava.this);
