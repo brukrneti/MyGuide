@@ -51,8 +51,12 @@ public class TourAdapter extends  RecyclerView.Adapter<TourAdapter.TourViewHolde
         Tour tour = tourList.get(position);
         holder.textViewTitle.setText(tour.getNaziv());
         holder.textViewDesc.setText(tour.getOpis());
-     //   holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(tour.getImg_path()));
-        holder.textViewImgPath.setText(tour.getImg_name());
+
+        Picasso.with(mCtx)
+                .load(tour.getImg_path())
+                .into(holder.imageView);
+       // holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(tour.getImg_path()));
+        //holder.textViewImgPath.setText(tour.getImg_name());
 //        Drawable drawable = LoadImageFromWebOperations("http://forum.roda.hr/images/customavatars/avatar10164_2.gif");
 //        imgView.setBackgroundDrawable(drawable);
 //        try {
@@ -72,13 +76,14 @@ public class TourAdapter extends  RecyclerView.Adapter<TourAdapter.TourViewHolde
 
     class TourViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
-        TextView textViewTitle, textViewDesc, textViewImgPath;
+        TextView textViewTitle, textViewDesc;
         public TourViewHolder(View itemView) {
             super(itemView);
             //imageView = itemView.findViewById(R.id.imageView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewDesc = itemView.findViewById(R.id.textViewShortDesc);
-            textViewImgPath = itemView.findViewById(R.id.textViewImgPath);
+            imageView = itemView.findViewById(R.id.imageView);
+            //textViewImgPath = itemView.findViewById(R.id.textViewImgName);
         }
     }
 }
