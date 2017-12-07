@@ -1,10 +1,16 @@
 package hr.foi.myguide;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,12 +20,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,21 +41,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hr.foi.database.entities.Tour;
+import hr.foi.myguide.Adapters.TourAdapter;
 import hr.foi.webservice.ZahtjevZaPrijavu;
 import hr.foi.webservice.ZahtjevZaTuru;
 
 public class PocetnaStranica extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    RecyclerView recyclerView;
+    TourAdapter adapter;
+    List<Tour> listTour;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pocetna_stranica);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //final PocetnaStranica p = new PocetnaStranica();
 
+        listTour = new ArrayList<>();
+
+        //creating recyclerview adapter
+        final TourAdapter adapter = new TourAdapter(this, listTour);
+
+        //setting adapter to recyclerview
+        recyclerView.setAdapter(adapter);
+        //adapter = new TourAdapter(this, listTour);
+        //recyclerView.setAdapter(adapter);
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
+
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     JSONObject dataJSON = jsonResponse.getJSONObject("data");
@@ -51,12 +84,59 @@ public class PocetnaStranica extends AppCompatActivity
                     if(success){
                         JSONArray tours= dataJSON.getJSONArray("rows");
                         //List<Tour> toursList = new ArrayList<Tour>();
-
                         Tour tourInstance = new Tour();
                         tourInstance.fetchTours(tours);
+                        adapter.updateToursList(tourInstance.toursList);
+                        //listTour = tourInstance.toursList;
+                        //adapter.notifyDataSetChanged();
 
-                        List<Tour> toursList = new ArrayList<Tour>();
-                        toursList = tourInstance.toursList;
+                        //List<Tour> toursList = new ArrayList<Tour>();
+                        //toursList = tourInstance.toursList;
+
+//                        for (int i=0; i<tourInstance.toursList.size();i++) {
+//                            Tour object = new Tour();
+//
+//                            object = tourInstance.toursList.get(i);
+//
+//                            // Initialize a new CardView
+//                            CardView card = new CardView(mContext);
+//
+//                            // Set the CardView layoutParams
+//                            LayoutParams params = new LayoutParams(
+//                                    LayoutParams.WRAP_CONTENT,
+//                                    LayoutParams.WRAP_CONTENT
+//                            );
+//                            params.setMargins(1000,100,40,20);
+//                            card.setLayoutParams(params);
+//
+//                            // Set CardView corner radius
+//                            card.setRadius(9);
+//
+//                            // Set cardView content padding
+//                            //card.setContentPadding(15+(i*5), 15+(i*5), 15+(i*5), 15+(i*5));
+//
+//                            // Set a background color for CardView
+//                            //card.setCardBackgroundColor(Color.parseColor("#FFC6D6C3"));
+//
+//                            // Set the CardView maximum elevation
+//                           // card.setMaxCardElevation(15);
+//
+//                            // Set CardView elevation
+//                           // card.setCardElevation(9);
+//
+//                            // Initialize a new TextView to put in CardView
+//                            TextView tv = new TextView(mContext);
+//                            tv.setLayoutParams(params);
+//                            tv.setText(object.opis);
+//                            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
+//                            tv.setTextColor(Color.RED);
+//
+//                            // Put the TextView in CardView
+//                            card.addView(tv);
+//
+//                            // Finally, add the CardView in root layout
+//                            mRelativeLayout.addView(card);
+//                        }
 
 
 //                        for (int i = 0; i < tours.length(); i++) {
@@ -72,7 +152,7 @@ public class PocetnaStranica extends AppCompatActivity
 //                                    tour.getInt("aktivan"));
 //                            toursList.add(tura);
 //                        }
-                        JSONObject dadata = jsonResponse.getJSONObject("data");
+                       // JSONObject dadata = jsonResponse.getJSONObject("data");
 
 
                         //Tour tura = new Tour();

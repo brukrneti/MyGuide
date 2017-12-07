@@ -16,7 +16,7 @@ public class Tour {
     public String naziv;
     public String opis;
     public String img_name;
-    public String img_path;
+    public Integer img_path;
     public Integer id_korisnik;
     public Integer aktivan;
 
@@ -25,7 +25,16 @@ public class Tour {
     public Tour () {
 
     }
-    public Tour(Integer id_tura, String naziv, String opis, String img_name, String img_path, Integer id_korisnik, Integer aktivan) {
+//    public Tour(Integer id_tura, String naziv, String opis, String img_name, String img_path, Integer id_korisnik, Integer aktivan) {
+//        this.id_tura = id_tura;
+//        this.naziv = naziv;
+//        this.opis = opis;
+//        this.img_name = img_name;
+//        this.img_path = img_path;
+//        this.id_korisnik = id_korisnik;
+//        this.aktivan = aktivan;
+//    }
+    public Tour(String naziv, String opis, int img_path) {
         this.id_tura = id_tura;
         this.naziv = naziv;
         this.opis = opis;
@@ -67,11 +76,11 @@ public class Tour {
         this.img_name = img_name;
     }
 
-    public String getImg_path() {
+    public int getImg_path() {
         return img_path;
     }
 
-    public void setImg_path(String img_path) {
+    public void setImg_path(int img_path) {
         this.img_path = img_path;
     }
 
@@ -102,7 +111,7 @@ public class Tour {
                 tourInstance.naziv = currentTour.getString("naziv");
                 tourInstance.opis = currentTour.getString("opis");
                 tourInstance.img_name = currentTour.getString("img_name");
-                tourInstance.img_path = currentTour.getString("img_path");
+                tourInstance.img_path = currentTour.getInt("img_path");
                 tourInstance.id_korisnik = currentTour.getInt("id_korisnik");
                 tourInstance.aktivan = currentTour.getInt("aktivan");
 
