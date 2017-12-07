@@ -51,8 +51,8 @@ public class TourAdapter extends  RecyclerView.Adapter<TourAdapter.TourViewHolde
         Tour tour = tourList.get(position);
         holder.textViewTitle.setText(tour.getNaziv());
         holder.textViewDesc.setText(tour.getOpis());
-        holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(tour.getImg_path()));
-//        holder.textViewImgPath.setText(tour.getImg_name());
+     //   holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(tour.getImg_path()));
+        holder.textViewImgPath.setText(tour.getImg_name());
 //        Drawable drawable = LoadImageFromWebOperations("http://forum.roda.hr/images/customavatars/avatar10164_2.gif");
 //        imgView.setBackgroundDrawable(drawable);
 //        try {
