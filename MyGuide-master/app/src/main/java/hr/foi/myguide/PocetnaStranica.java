@@ -82,8 +82,6 @@ public class PocetnaStranica extends AppCompatActivity
                                     Tour tourInstance = new Tour();
                                     tourInstance.fetchTours(tours);
                                     adapter.updateToursList(tourInstance.toursList);
-
-
                                 } else {
                                 }
                             } catch (JSONException e) {
@@ -176,6 +174,8 @@ public class PocetnaStranica extends AppCompatActivity
                 }else if (id == R.id.nav_reservation) {
 
                 }else if (id == R.id.nav_addTour) {
+                    Intent intent = new Intent(PocetnaStranica.this, Tours.class);
+                    PocetnaStranica.this.startActivity(intent);
 
                 }else if (id == R.id.nav_confirmRes) {
 
