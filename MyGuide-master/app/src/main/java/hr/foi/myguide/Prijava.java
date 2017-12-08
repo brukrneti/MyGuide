@@ -72,6 +72,7 @@ public class Prijava extends AppCompatActivity implements  Serializable {
                                 sessionManager.createLoginSession(korisnik);
                                 Intent intent = new Intent(Prijava.this, PocetnaStranica.class);
                                 Prijava.this.startActivity(intent);
+                                //finish();
                             }else{
                                 AlertDialog.Builder builder = new AlertDialog.Builder(Prijava.this);
                                 builder.setMessage("Prijava neuspješna")

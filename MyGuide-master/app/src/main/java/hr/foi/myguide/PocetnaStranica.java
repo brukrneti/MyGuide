@@ -38,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,11 +53,13 @@ public class PocetnaStranica extends AppCompatActivity
             RecyclerView recyclerView;
             TourAdapter adapter;
             List<Tour> listTour;
-
             @Override
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_pocetna_stranica);
+                SessionManager sessionManager = new SessionManager(this);
+
+                final Korisnik loggedUser = sessionManager.retrieveUser();
                 recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -66,39 +69,31 @@ public class PocetnaStranica extends AppCompatActivity
                 //setting adapter to recyclerview
                 recyclerView.setAdapter(adapter);
 
-//                Intent intent = this.getIntent();
-//                Bundle bundle = intent.getExtras();
-//                bundle.getSerializable("Korisnik");
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                JSONObject dataJSON = jsonResponse.getJSONObject("data");
+                                boolean success = dataJSON.getBoolean("success");
+                                Integer idUserType = loggedUser.getId_tip_korisnika();
+                                if (success) {
+                                    JSONArray tours = dataJSON.getJSONArray("rows");
+                                    Tour tourInstance = new Tour();
+                                    tourInstance.fetchTours(tours);
+                                    adapter.updateToursList(tourInstance.toursList);
 
-                SessionManager sessionManager = new SessionManager(this);
 
-                final Korisnik loggedUser = sessionManager.retrieveUser();
-
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            JSONObject dataJSON = jsonResponse.getJSONObject("data");
-                            boolean success = dataJSON.getBoolean("success");
-                            Integer idUserType = loggedUser.getId_tip_korisnika();
-                            if(success){
-                                JSONArray tours= dataJSON.getJSONArray("rows");
-                                Tour tourInstance = new Tour();
-                                tourInstance.fetchTours(tours);
-                                adapter.updateToursList(tourInstance.toursList);
-                            }else{
+                                } else {
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                };
-                ZahtjevZaTuru zahtjevZaTuru = new ZahtjevZaTuru(responseListener);
-                RequestQueue queue = Volley.newRequestQueue(PocetnaStranica.this);
-                queue.add(zahtjevZaTuru);
-
-
+                    };
+                    ZahtjevZaTuru zahtjevZaTuru = new ZahtjevZaTuru(responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(PocetnaStranica.this);
+                    queue.add(zahtjevZaTuru);
 
                 Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
                 setSupportActionBar(toolbar);
@@ -120,12 +115,25 @@ public class PocetnaStranica extends AppCompatActivity
 
                 NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                 navigationView.setNavigationItemSelectedListener(this);
+                Menu menu =navigationView.getMenu();
+
+                if(loggedUser.getId_tip_korisnika()==1){
+                    MenuItem addTour = menu.findItem(R.id.nav_addTour);
+                    MenuItem confirm = menu.findItem(R.id.nav_confirmRes);
+                    addTour.setVisible(false);
+                    confirm.setVisible(false);
+                }
+                if(loggedUser.getId_tip_korisnika()==2){
+                    MenuItem reservation = menu.findItem(R.id.nav_reservation);
+                    reservation.setVisible(false);
+                }
             }
 
             @Override
             public void onBackPressed() {
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 if (drawer.isDrawerOpen(GravityCompat.START)) {
+
                     drawer.closeDrawer(GravityCompat.START);
                 } else {
                     super.onBackPressed();
@@ -135,12 +143,14 @@ public class PocetnaStranica extends AppCompatActivity
             @Override
             public boolean onCreateOptionsMenu(Menu menu) {
                 // Inflate the menu;ems to the a this adds itction bar if it is present.
+
                 getMenuInflater().inflate(R.menu.pocetna_stranica, menu);
                 return true;
             }
 
             @Override
             public boolean onOptionsItemSelected(MenuItem item) {
+
                 // Handle action bar item clicks here. The action bar will
                 // automatically handle clicks on the Home/Up button, so long
                 // as you specify a parent activity in AndroidManifest.xml.
@@ -159,15 +169,22 @@ public class PocetnaStranica extends AppCompatActivity
             public boolean onNavigationItemSelected(MenuItem item) {
                 int id = item.getItemId();
 
-                if (id == R.id.nav_login) {
-                    Intent intent = new Intent(PocetnaStranica.this, Prijava.class);
-                    PocetnaStranica.this.startActivity(intent);
-                } else if (id == R.id.nav_signup) {
-                    Intent intent = new Intent(PocetnaStranica.this, Registracija.class);
-                    PocetnaStranica.this.startActivity(intent);
+                if(id == R.id.nav_home) {
 
-                } else if (id == R.id.nav_about) {
+                }else if (id == R.id.nav_profile) {
 
+                }else if (id == R.id.nav_reservation) {
+
+                }else if (id == R.id.nav_addTour) {
+
+                }else if (id == R.id.nav_confirmRes) {
+
+                }else if (id == R.id.nav_about) {
+
+                }else if (id == R.id.nav_logout) {
+                    SessionManager logOut = new SessionManager(this);
+                    logOut.logoutUser();
+                    finish();
                 }
 
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
