@@ -15,7 +15,7 @@ public class ZahtjevZaDodavanjeTure extends StringRequest {
     private static final String REGISTER_REQUEST_URL = "http://yeloo.hr/AiR/MyGuideWebServices/Tura/add";
     private Map<String, String> params;
 
-    public ZahtjevZaDodavanjeTure(String naziv, String opis, Float cijena, String img_name, String img_path, Integer id_korisnik, Response.Listener<String> listener){
+    public ZahtjevZaDodavanjeTure(String naziv, String opis, Double cijena, String img_name, String img_path, Integer id_korisnik, Response.Listener<String> listener){
         super(Request.Method.POST, REGISTER_REQUEST_URL, listener,null);
         params = new HashMap<>();
         params.put("naziv", naziv);

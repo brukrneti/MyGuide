@@ -1,5 +1,8 @@
 package hr.foi.database.entities;
 
+import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +18,7 @@ public class Tour {
     public Integer id_tura;
     public String naziv;
     public String opis;
+    public Double cijena;
     public String img_name;
     public String img_path;
     public Integer id_korisnik;
@@ -25,23 +29,16 @@ public class Tour {
     public Tour () {
 
     }
-//    public Tour(Integer id_tura, String naziv, String opis, String img_name, String img_path, Integer id_korisnik, Integer aktivan) {
-//        this.id_tura = id_tura;
-//        this.naziv = naziv;
-//        this.opis = opis;
-//        this.img_name = img_name;
-//        this.img_path = img_path;
-//        this.id_korisnik = id_korisnik;
-//        this.aktivan = aktivan;
-//    }
-    public Tour(String naziv, String opis, String img_path) {
-        this.id_tura = id_tura;
+
+    public Tour(String naziv, String opis,Double cijena, String img_name, String img_path, Integer id_korisnik) {
+        //this.id_tura = id_tura;
         this.naziv = naziv;
         this.opis = opis;
+        this.cijena = cijena;
         this.img_name = img_name;
         this.img_path = img_path;
         this.id_korisnik = id_korisnik;
-        this.aktivan = aktivan;
+        //this.aktivan = aktivan;
     }
 
     public Integer getId_tura() {
@@ -67,6 +64,10 @@ public class Tour {
     public void setOpis(String opis) {
         this.opis = opis;
     }
+
+    public Double getCijena() { return cijena; }
+
+    public void setCijena(Double cijena) { this.cijena = cijena; }
 
     public String getImg_name() {
         return img_name;
@@ -110,6 +111,7 @@ public class Tour {
                 tourInstance.id_korisnik = currentTour.getInt("id_tura");
                 tourInstance.naziv = currentTour.getString("naziv");
                 tourInstance.opis = currentTour.getString("opis");
+                tourInstance.cijena = currentTour.getDouble("cijena");
                 tourInstance.img_name = currentTour.getString("img_name");
                 tourInstance.img_path = currentTour.getString("img_path");
                 tourInstance.id_korisnik = currentTour.getInt("id_korisnik");

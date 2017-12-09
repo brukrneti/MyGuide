@@ -51,6 +51,8 @@ public class TourAdapter extends  RecyclerView.Adapter<TourAdapter.TourViewHolde
         Tour tour = tourList.get(position);
         holder.textViewTitle.setText(tour.getNaziv());
         holder.textViewDesc.setText(tour.getOpis());
+        holder.textViewPrice.setText(tour.getCijena().toString());
+
 
         Picasso.with(mCtx)
                 .load(tour.getImg_path())
@@ -76,13 +78,15 @@ public class TourAdapter extends  RecyclerView.Adapter<TourAdapter.TourViewHolde
 
     class TourViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
-        TextView textViewTitle, textViewDesc;
+        TextView textViewTitle, textViewDesc, textViewPrice ;
         public TourViewHolder(View itemView) {
             super(itemView);
             //imageView = itemView.findViewById(R.id.imageView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewDesc = itemView.findViewById(R.id.textViewShortDesc);
             imageView = itemView.findViewById(R.id.imageView);
+            textViewPrice = itemView.findViewById(R.id.textViewPrice);
+
             //textViewImgPath = itemView.findViewById(R.id.textViewImgName);
         }
     }

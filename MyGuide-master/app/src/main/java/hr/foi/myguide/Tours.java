@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -68,46 +70,63 @@ public class Tours extends AppCompatActivity  implements View.OnClickListener{
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String tourName = etTourName.getText().toString();
-                final String tourDescription = etTourDescription.getText().toString();
-                final Float tourPrice = Float.valueOf(etTourPrice.getText().toString());
-                final Integer idKorisnik = loggedUser.getId_korisnik();
+                if( !TextUtils.isEmpty(etTourName.getText().toString()) && !TextUtils.isEmpty(etTourDescription.getText().toString()) && !TextUtils.isEmpty(etTourPrice.getText().toString())){
 
-                Bitmap image = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] imageBytes = baos.toByteArray();
-                String imageString = Base64.encodeToString(imageBytes, Base64.NO_WRAP);
-               // String imageName = "IMAG0090.jpg";
 
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    final String tourName = etTourName.getText().toString();
+                    final String tourDescription = etTourDescription.getText().toString();
+                    final Double tourPrice = Double.valueOf(etTourPrice.getText().toString());
+                    final Integer idKorisnik = loggedUser.getId_korisnik();
 
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            //boolean success = jsonResponse.getBoolean("success");
-                            JSONObject dataJSON = jsonResponse.getJSONObject("data");
-                            boolean success = dataJSON.getBoolean("success");
-                            if (success) {
-                               // Intent intent = new Intent(Tours.this, Prijava.class);
-                               // Tours.this.startActivity(intent);
-                            } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(Tours.this);
-                                builder.setMessage("Registracija neuspješna")
-                                        .setNegativeButton("Ponovno", null)
-                                        .create()
-                                        .show();
+                    final Bitmap image = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] imageBytes = baos.toByteArray();
+                    String imageString = Base64.encodeToString(imageBytes, Base64.NO_WRAP);
+
+                    //Tour tourInstance = new Tour(tourName,tourDescription,tourPrice, imageName, imageString, idKorisnik);
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+
+                                JSONObject jsonResponse = new JSONObject(response);
+                                //boolean success = jsonResponse.getBoolean("success");
+                                JSONObject dataJSON = jsonResponse.getJSONObject("data");
+                                boolean success = dataJSON.getBoolean("success");
+                                if (success) {
+                                    Toast.makeText(getApplicationContext(), "Tour has been successfully submitted.",
+                                            Toast.LENGTH_LONG).show();
+                                    etTourName.setText("");
+                                    etTourPrice.setText("");
+                                    etTourDescription.setText("");
+                                    imageView.setImageResource(android.R.color.transparent);
+                                } else{
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(Tours.this);
+                                    builder.setMessage("Error.")
+                                            .setNegativeButton("Try again", null)
+                                            .create()
+                                            .show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                };
+                    };
+                    ZahtjevZaDodavanjeTure zahtjevZaDodavanjeTure = new ZahtjevZaDodavanjeTure(tourName, tourDescription, tourPrice, imageName, imageString, idKorisnik, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(Tours.this);
+                    queue.add(zahtjevZaDodavanjeTure);
 
-                ZahtjevZaDodavanjeTure zahtjevZaDodavanjeTure = new ZahtjevZaDodavanjeTure(tourName, tourDescription, tourPrice, imageName, imageString,idKorisnik , responseListener);
-                RequestQueue queue = Volley.newRequestQueue(Tours.this);
-                queue.add(zahtjevZaDodavanjeTure);
+
+            }else if(TextUtils.isEmpty(etTourName.getText().toString()) || TextUtils.isEmpty(etTourDescription.getText().toString()) || TextUtils.isEmpty(etTourPrice.getText().toString())){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Tours.this);
+                    builder.setMessage("You must fill in all of the field.")
+                            .setNegativeButton("Try again", null)
+                            .create()
+                            .show();
+                }
             }
         });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
