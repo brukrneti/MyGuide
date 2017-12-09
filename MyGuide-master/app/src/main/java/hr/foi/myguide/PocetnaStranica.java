@@ -1,16 +1,10 @@
 package hr.foi.myguide;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,32 +14,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 
 import hr.foi.database.entities.Korisnik;
 import hr.foi.database.entities.Tour;
 import hr.foi.myguide.Adapters.TourAdapter;
-import hr.foi.webservice.ZahtjevZaPrijavu;
 import hr.foi.webservice.ZahtjevZaTuru;
 
 public class PocetnaStranica extends AppCompatActivity
@@ -96,14 +79,16 @@ public class PocetnaStranica extends AppCompatActivity
                 Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
                 setSupportActionBar(toolbar);
 
-                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-                fab.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
-                });
+//                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//                fab.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(PocetnaStranica.this, AddTour.class);
+//                        PocetnaStranica.this.startActivity(intent);
+////                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+////                                .setAction("Action", null).show();
+//                    }
+//                });
 
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -114,12 +99,14 @@ public class PocetnaStranica extends AppCompatActivity
                 NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                 navigationView.setNavigationItemSelectedListener(this);
                 Menu menu =navigationView.getMenu();
-
+                menu.getItem(0).setChecked(true);
                 if(loggedUser.getId_tip_korisnika()==1){
                     MenuItem addTour = menu.findItem(R.id.nav_addTour);
                     MenuItem confirm = menu.findItem(R.id.nav_confirmRes);
+                    MenuItem myTours = menu.findItem(R.id.nav_myTours);
                     addTour.setVisible(false);
                     confirm.setVisible(false);
+                    myTours.setVisible(false);
                 }
                 if(loggedUser.getId_tip_korisnika()==2){
                     MenuItem reservation = menu.findItem(R.id.nav_reservation);
@@ -173,8 +160,11 @@ public class PocetnaStranica extends AppCompatActivity
 
                 }else if (id == R.id.nav_reservation) {
 
+                }else if(id==R.id.nav_myTours){
+                    Intent intent = new Intent(PocetnaStranica.this, EditTour.class);
+                    PocetnaStranica.this.startActivity(intent);
                 }else if (id == R.id.nav_addTour) {
-                    Intent intent = new Intent(PocetnaStranica.this, Tours.class);
+                    Intent intent = new Intent(PocetnaStranica.this, AddTour.class);
                     PocetnaStranica.this.startActivity(intent);
 
                 }else if (id == R.id.nav_confirmRes) {

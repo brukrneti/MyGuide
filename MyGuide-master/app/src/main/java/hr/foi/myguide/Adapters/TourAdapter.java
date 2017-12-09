@@ -51,7 +51,7 @@ public class TourAdapter extends  RecyclerView.Adapter<TourAdapter.TourViewHolde
         Tour tour = tourList.get(position);
         holder.textViewTitle.setText(tour.getNaziv());
         holder.textViewDesc.setText(tour.getOpis());
-        holder.textViewPrice.setText(tour.getCijena().toString());
+        holder.textViewPrice.setText(tour.getCijena().toString() + "kn per person");
 
 
         Picasso.with(mCtx)

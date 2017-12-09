@@ -3,7 +3,7 @@
     package="hr.foi.myguide">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -25,9 +25,14 @@
         <activity android:name=".PocetnaStranica" />
         <activity android:name=".Registracija" />
         <activity
-            android:name=".Tours"
-            android:label="@string/title_activity_tours"
-            android:theme="@style/AppTheme"></activity>
+            android:name=".AddTour"
+            android:label="Tours"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".EditTour"
+            android:label="@string/title_activity_edit_tour"
+            android:theme="@style/AppTheme" />
+
     </application>
 
 </manifest>

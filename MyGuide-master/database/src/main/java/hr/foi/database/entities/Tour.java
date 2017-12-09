@@ -125,8 +125,30 @@ public class Tour {
 
         }
     }
+    public void fetchMyTours(JSONArray jsonData) {
+        for (int i = 0; i < jsonData.length(); i++) {
+            //JSONObject currentRow = tours.getJSONObject(i).getInt("id_tura");
+            JSONObject currentTour = null;
+            try {
+                currentTour = jsonData.getJSONObject(i);
+                Tour tourInstance = new Tour();
+                tourInstance.id_korisnik = currentTour.getInt("id_tura");
+                tourInstance.naziv = currentTour.getString("naziv");
+                tourInstance.opis = currentTour.getString("opis");
+                tourInstance.cijena = currentTour.getDouble("cijena");
+                tourInstance.img_name = currentTour.getString("img_name");
+                tourInstance.img_path = currentTour.getString("img_path");
+                tourInstance.id_korisnik = currentTour.getInt("id_korisnik");
+                tourInstance.aktivan = currentTour.getInt("aktivan");
 
-    public void addTour() {
+                toursList.add(tourInstance);
 
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
+
+
 }

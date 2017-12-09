@@ -3,25 +3,20 @@ package hr.foi.myguide;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -35,11 +30,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import hr.foi.database.entities.Korisnik;
-import hr.foi.database.entities.Tour;
 import hr.foi.webservice.ZahtjevZaDodavanjeTure;
-import hr.foi.webservice.ZahtjevZaRegistraciju;
 
-public class Tours extends AppCompatActivity  implements View.OnClickListener{
+public class AddTour extends AppCompatActivity implements View.OnClickListener{
     private static final int RESULT_LOAD_IMAGE = 1;
     EditText etTourName, etTourDescription, etTourPrice;
     ImageView imageView;
@@ -104,7 +97,7 @@ public class Tours extends AppCompatActivity  implements View.OnClickListener{
                                     etTourDescription.setText("");
                                     imageView.setImageResource(android.R.color.transparent);
                                 } else{
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(Tours.this);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(AddTour.this);
                                     builder.setMessage("Error.")
                                             .setNegativeButton("Try again", null)
                                             .create()
@@ -116,12 +109,12 @@ public class Tours extends AppCompatActivity  implements View.OnClickListener{
                         }
                     };
                     ZahtjevZaDodavanjeTure zahtjevZaDodavanjeTure = new ZahtjevZaDodavanjeTure(tourName, tourDescription, tourPrice, imageName, imageString, idKorisnik, responseListener);
-                    RequestQueue queue = Volley.newRequestQueue(Tours.this);
+                    RequestQueue queue = Volley.newRequestQueue(AddTour.this);
                     queue.add(zahtjevZaDodavanjeTure);
 
 
             }else if(TextUtils.isEmpty(etTourName.getText().toString()) || TextUtils.isEmpty(etTourDescription.getText().toString()) || TextUtils.isEmpty(etTourPrice.getText().toString())){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Tours.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddTour.this);
                     builder.setMessage("You must fill in all of the field.")
                             .setNegativeButton("Try again", null)
                             .create()
@@ -129,15 +122,16 @@ public class Tours extends AppCompatActivity  implements View.OnClickListener{
                 }
             }
         });
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+////                        .setAction("Action", null).show();
+//
+//            }
+//        });
     }
 
     @Override
@@ -178,6 +172,8 @@ public class Tours extends AppCompatActivity  implements View.OnClickListener{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()== android.R.id.home){
+            Intent intent = new Intent(AddTour.this, EditTour.class);
+            AddTour.this.startActivity(intent);
             finish();
         }
         return super.onOptionsItemSelected(item);
