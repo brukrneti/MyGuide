@@ -1,13 +1,20 @@
 package hr.foi.myguide;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,20 +22,37 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+
+import hr.foi.database.entities.Korisnik;
 import hr.foi.database.entities.Tour;
+import hr.foi.webservice.ZahtjevZaDodavanjeTure;
+import hr.foi.webservice.ZahtjevZaRegistraciju;
 
 public class Tours extends AppCompatActivity  implements View.OnClickListener{
     private static final int RESULT_LOAD_IMAGE = 1;
     EditText etTourName, etTourDescription, etTourPrice;
     ImageView imageView;
     Button btnUpload;
+    String imageName;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tours);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        SessionManager sessionManager = new SessionManager(this);
+        final Korisnik loggedUser = sessionManager.retrieveUser();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -40,7 +64,52 @@ public class Tours extends AppCompatActivity  implements View.OnClickListener{
         btnUpload = (Button) findViewById(R.id.btnUpload);
 
         imageView.setOnClickListener(this);
-        btnUpload.setOnClickListener(this);
+        //btnUpload.setOnClickListener(this);
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String tourName = etTourName.getText().toString();
+                final String tourDescription = etTourDescription.getText().toString();
+                final Float tourPrice = Float.valueOf(etTourPrice.getText().toString());
+                final Integer idKorisnik = loggedUser.getId_korisnik();
+
+                Bitmap image = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] imageBytes = baos.toByteArray();
+                String imageString = Base64.encodeToString(imageBytes, Base64.NO_WRAP);
+               // String imageName = "IMAG0090.jpg";
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            //boolean success = jsonResponse.getBoolean("success");
+                            JSONObject dataJSON = jsonResponse.getJSONObject("data");
+                            boolean success = dataJSON.getBoolean("success");
+                            if (success) {
+                               // Intent intent = new Intent(Tours.this, Prijava.class);
+                               // Tours.this.startActivity(intent);
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Tours.this);
+                                builder.setMessage("Registracija neuspješna")
+                                        .setNegativeButton("Ponovno", null)
+                                        .create()
+                                        .show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                ZahtjevZaDodavanjeTure zahtjevZaDodavanjeTure = new ZahtjevZaDodavanjeTure(tourName, tourDescription, tourPrice, imageName, imageString,idKorisnik , responseListener);
+                RequestQueue queue = Volley.newRequestQueue(Tours.this);
+                queue.add(zahtjevZaDodavanjeTure);
+            }
+        });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,8 +128,6 @@ public class Tours extends AppCompatActivity  implements View.OnClickListener{
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(galleryIntent,RESULT_LOAD_IMAGE);
                 break;
-            case R.id.btnUpload:
-                break;
         }
     }
 
@@ -70,6 +137,22 @@ public class Tours extends AppCompatActivity  implements View.OnClickListener{
         if(requestCode==RESULT_LOAD_IMAGE && resultCode==RESULT_OK && data!=null){
             Uri selectedImage = data.getData();
             imageView.setImageURI(selectedImage);
+
+            String[] projection = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage, projection, null, null, null);
+            cursor.moveToFirst();
+
+            //Log.d(TAG, DatabaseUtils.dumpCursorToString(cursor));
+
+            int columnIndex = cursor.getColumnIndex(projection[0]);
+            String picturePath = cursor.getString(columnIndex); // returns null
+
+            File f = new File(picturePath);
+
+            imageName = f.getName();
+            cursor.close();
+
         }
     }
 

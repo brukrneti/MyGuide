@@ -123,4 +123,8 @@ public class Tour {
 
         }
     }
+
+    public void addTour() {
+
+    }
 }
