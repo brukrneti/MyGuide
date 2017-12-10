@@ -35,6 +35,10 @@
         <activity
             android:name=".TourDetails"
             android:label="@string/title_activity_tour_details"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".EditTour"
+            android:label="@string/title_activity_edit_tour"
             android:theme="@style/AppTheme"></activity>
     </application>
 

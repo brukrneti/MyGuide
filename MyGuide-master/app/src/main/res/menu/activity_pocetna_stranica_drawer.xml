@@ -5,27 +5,23 @@
         android:id="@+id/groupUnreg">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@mipmap/ic_home"
             android:title="Home" />
         <item
             android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@mipmap/ic_profile"
             android:title="Profile" />
         <item
             android:id="@+id/nav_myTours"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@mipmap/ic_mytours"
             android:title="My Tours" />
         <item
             android:id="@+id/nav_reservation"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@mipmap/ic_reservation"
             android:title="Reservation" />
         <item
-            android:id="@+id/nav_addTour"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Add Tour" />
-        <item
             android:id="@+id/nav_confirmRes"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@mipmap/ic_reservation"
             android:title="Edit Reservations" />
     </group>
 
@@ -37,7 +33,7 @@
                 android:title="About us" />
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@mipmap/ic_logout"
                 android:title="Log Out" />
         </menu>
     </item>

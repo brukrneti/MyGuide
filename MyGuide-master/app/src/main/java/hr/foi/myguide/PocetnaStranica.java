@@ -99,10 +99,8 @@ public class PocetnaStranica extends AppCompatActivity
                 Menu menu =navigationView.getMenu();
                 menu.getItem(0).setChecked(true);
                 if(loggedUser.getId_tip_korisnika()==1){
-                    MenuItem addTour = menu.findItem(R.id.nav_addTour);
                     MenuItem confirm = menu.findItem(R.id.nav_confirmRes);
                     MenuItem myTours = menu.findItem(R.id.nav_myTours);
-                    addTour.setVisible(false);
                     confirm.setVisible(false);
                     myTours.setVisible(false);
                 }
@@ -161,10 +159,6 @@ public class PocetnaStranica extends AppCompatActivity
                 }else if(id==R.id.nav_myTours){
                     Intent intent = new Intent(PocetnaStranica.this, MyTour.class);
                     PocetnaStranica.this.startActivity(intent);
-                }else if (id == R.id.nav_addTour) {
-                    Intent intent = new Intent(PocetnaStranica.this, AddTour.class);
-                    PocetnaStranica.this.startActivity(intent);
-
                 }else if (id == R.id.nav_confirmRes) {
 
                 }else if (id == R.id.nav_about) {

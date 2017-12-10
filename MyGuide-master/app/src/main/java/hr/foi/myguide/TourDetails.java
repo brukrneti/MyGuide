@@ -96,11 +96,14 @@ public class TourDetails extends AppCompatActivity {
                         JSONObject dataJSON = jsonResponse.getJSONObject("data");
                         boolean success = dataJSON.getBoolean("success");
                         if (success) {
-                            Intent intent = getIntent();
-                            finish();
-                            startActivity(intent);
+
                             Toast.makeText(getApplicationContext(), "Tour has been successfully deleted.",
                                     Toast.LENGTH_LONG).show();
+
+                            Intent intent = new Intent(TourDetails.this, MyTour.class);
+                            TourDetails.this.startActivity(intent);
+                            finish();
+
                         } else {
                         }
                     } catch (JSONException e) {
@@ -111,6 +114,11 @@ public class TourDetails extends AppCompatActivity {
             ZahtjevZaBrisanjeTure zahtjevZaBrisanjeTure = new ZahtjevZaBrisanjeTure(idTour,responseListener);
             RequestQueue queue = Volley.newRequestQueue(TourDetails.this);
             queue.add(zahtjevZaBrisanjeTure);
+        }
+        if(id == R.id.edit){
+            Intent intent = new Intent(this, EditTour.class);
+            intent.putExtra("PARCELABLE_OBJEKT", tour);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
