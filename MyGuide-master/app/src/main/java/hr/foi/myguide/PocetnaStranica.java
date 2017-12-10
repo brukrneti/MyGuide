@@ -28,13 +28,13 @@ import java.util.List;
 
 import hr.foi.database.entities.Korisnik;
 import hr.foi.database.entities.Tour;
-import hr.foi.myguide.Adapters.TourAdapter;
+import hr.foi.myguide.Adapters.HomeAdapter;
 import hr.foi.webservice.ZahtjevZaTuru;
 
 public class PocetnaStranica extends AppCompatActivity
             implements NavigationView.OnNavigationItemSelectedListener {
             RecyclerView recyclerView;
-            TourAdapter adapter;
+            HomeAdapter adapter;
             List<Tour> listTour;
             @Override
             protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +47,13 @@ public class PocetnaStranica extends AppCompatActivity
                 FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
                 fab.setVisibility(View.INVISIBLE);
 
-                recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+               recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
                 listTour = new ArrayList<>();
                 //creating recyclerview adapter
-                final TourAdapter adapter = new TourAdapter(this, listTour);
+                final HomeAdapter adapter = new HomeAdapter(this, listTour);
 
                 //setting adapter to recyclerview
                 recyclerView.setAdapter(adapter);
@@ -82,6 +83,7 @@ public class PocetnaStranica extends AppCompatActivity
 
                 Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
                 setSupportActionBar(toolbar);
+                getSupportActionBar().setTitle("Home");
 
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -159,7 +161,12 @@ public class PocetnaStranica extends AppCompatActivity
 
                 }else if (id == R.id.nav_about) {
 
-                }else if (id == R.id.nav_logout) {
+                }else if(id == R.id.nav_map){
+                    Intent intent = new Intent(PocetnaStranica.this, TourMap.class);
+                    PocetnaStranica.this.startActivity(intent);
+                }
+
+                else if (id == R.id.nav_logout) {
                     SessionManager logOut = new SessionManager(this);
                     logOut.logoutUser();
                     finish();

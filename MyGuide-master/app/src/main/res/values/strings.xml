@@ -8,4 +8,5 @@
     <string name="title_activity_tours">Tours</string>
     <string name="title_activity_edit_tour">EditTour</string>
     <string name="title_activity_tour_details">TourDetails</string>
+    <string name="title_activity_tour_map">Map</string>
 </resources>

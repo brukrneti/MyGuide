@@ -46,6 +46,7 @@ public class AddTour extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_tours);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Create tour");
         SessionManager sessionManager = new SessionManager(this);
         final Korisnik loggedUser = sessionManager.retrieveUser();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

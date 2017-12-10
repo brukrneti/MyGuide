@@ -44,10 +44,14 @@ public class TourDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_tour_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Tour details");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         Intent i = getIntent();
         tour = getIntent().getParcelableExtra("PARCELABLE_OBJEKT");
         textViewTourId  = (TextView) findViewById(R.id.textViewTourId);
@@ -67,6 +71,7 @@ public class TourDetails extends AppCompatActivity {
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +124,10 @@ public class TourDetails extends AppCompatActivity {
             Intent intent = new Intent(this, EditTour.class);
             intent.putExtra("PARCELABLE_OBJEKT", tour);
             startActivity(intent);
-        }
+        }else if(item.getItemId()== android.R.id.home){
+        Intent intent = new Intent(TourDetails.this, MyTour.class);
+        TourDetails.this.startActivity(intent);
+        finish();}
 
         return super.onOptionsItemSelected(item);
 
