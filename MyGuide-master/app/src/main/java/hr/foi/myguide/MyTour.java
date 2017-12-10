@@ -104,21 +104,21 @@ public class MyTour extends AppCompatActivity implements TourAdapterListener {
         getMenuInflater().inflate(R.menu.activity_menu,menu);
     }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.edit:
-                Toast.makeText(this, item.toString(), Toast.LENGTH_LONG).show();
-                break;
-            case R.id.delete:
-                Toast.makeText(this, item.toString(), Toast.LENGTH_LONG).show();
-
-                break;
-        }
-        return super.onContextItemSelected(item);
-
-
-    }
+//    @Override
+//    public boolean onContextItemSelected(MenuItem item) {
+//        switch (item.getItemId()){
+//            case R.id.edit:
+//                Toast.makeText(this, item.toString(), Toast.LENGTH_LONG).show();
+//                break;
+//            case R.id.delete:
+//                Toast.makeText(this, item.toString(), Toast.LENGTH_LONG).show();
+//
+//                break;
+//        }
+//        return super.onContextItemSelected(item);
+//
+//
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

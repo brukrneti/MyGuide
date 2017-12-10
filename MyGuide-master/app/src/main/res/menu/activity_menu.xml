@@ -1,10 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/edit"
-        android:icon="@android:drawable/ic_menu_edit"
-        android:title="Edit" />
-    <item android:id="@+id/delete"
-        android:icon="@android:drawable/ic_delete"
-        android:title="Delete" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <item
+        android:id="@+id/edit"
+        android:icon="@mipmap/ic_edit"
+        app:showAsAction="always"
+        android:title="text"/>
+    <item
+        android:id="@+id/delete"
+        android:icon="@mipmap/ic_delete"
+        app:showAsAction="always"
+        android:title="text"/>
+
 </menu>
