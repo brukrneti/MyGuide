@@ -95,6 +95,7 @@ public class AddTour extends AppCompatActivity implements View.OnClickListener{
                                     etTourName.setText("");
                                     etTourPrice.setText("");
                                     etTourDescription.setText("");
+
                                     imageView.setImageResource(android.R.color.transparent);
                                 } else{
                                     AlertDialog.Builder builder = new AlertDialog.Builder(AddTour.this);
@@ -172,7 +173,7 @@ public class AddTour extends AppCompatActivity implements View.OnClickListener{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()== android.R.id.home){
-            Intent intent = new Intent(AddTour.this, EditTour.class);
+            Intent intent = new Intent(AddTour.this, MyTour.class);
             AddTour.this.startActivity(intent);
             finish();
         }

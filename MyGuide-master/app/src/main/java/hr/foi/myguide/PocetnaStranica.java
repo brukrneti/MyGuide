@@ -2,10 +2,8 @@ package hr.foi.myguide;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -161,7 +159,7 @@ public class PocetnaStranica extends AppCompatActivity
                 }else if (id == R.id.nav_reservation) {
 
                 }else if(id==R.id.nav_myTours){
-                    Intent intent = new Intent(PocetnaStranica.this, EditTour.class);
+                    Intent intent = new Intent(PocetnaStranica.this, MyTour.class);
                     PocetnaStranica.this.startActivity(intent);
                 }else if (id == R.id.nav_addTour) {
                     Intent intent = new Intent(PocetnaStranica.this, AddTour.class);

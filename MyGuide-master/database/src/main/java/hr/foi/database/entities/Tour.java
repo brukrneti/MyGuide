@@ -1,5 +1,7 @@
 package hr.foi.database.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
@@ -7,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +17,8 @@ import java.util.List;
  * Created by Mateo on 6.12.2017..
  */
 
-public class Tour {
+
+public class Tour implements Parcelable{
     public Integer id_tura;
     public String naziv;
     public String opis;
@@ -40,6 +44,48 @@ public class Tour {
         this.id_korisnik = id_korisnik;
         //this.aktivan = aktivan;
     }
+
+    protected Tour(Parcel in) {
+        id_tura = in.readInt();
+        naziv = in.readString();
+        opis = in.readString();
+        cijena = in.readDouble();
+        img_name = in.readString();
+        img_path = in.readString();
+        id_korisnik = in.readInt();
+        aktivan = in.readInt();
+        toursList = in.createTypedArrayList(Tour.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id_tura);
+        dest.writeString(naziv);
+        dest.writeString(opis);
+        dest.writeDouble(cijena);
+        dest.writeString(img_name);
+        dest.writeString(img_path);
+        dest.writeInt(id_korisnik);
+        dest.writeInt(aktivan);
+        dest.writeTypedList(toursList);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Tour> CREATOR = new Creator<Tour>() {
+        @Override
+        public Tour createFromParcel(Parcel in) {
+            return new Tour(in);
+        }
+
+        @Override
+        public Tour[] newArray(int size) {
+            return new Tour[size];
+        }
+    };
 
     public Integer getId_tura() {
         return id_tura;
@@ -108,7 +154,7 @@ public class Tour {
             try {
                 currentTour = jsonData.getJSONObject(i);
                 Tour tourInstance = new Tour();
-                tourInstance.id_korisnik = currentTour.getInt("id_tura");
+                tourInstance.id_tura = currentTour.getInt("id_tura");
                 tourInstance.naziv = currentTour.getString("naziv");
                 tourInstance.opis = currentTour.getString("opis");
                 tourInstance.cijena = currentTour.getDouble("cijena");
@@ -125,30 +171,4 @@ public class Tour {
 
         }
     }
-    public void fetchMyTours(JSONArray jsonData) {
-        for (int i = 0; i < jsonData.length(); i++) {
-            //JSONObject currentRow = tours.getJSONObject(i).getInt("id_tura");
-            JSONObject currentTour = null;
-            try {
-                currentTour = jsonData.getJSONObject(i);
-                Tour tourInstance = new Tour();
-                tourInstance.id_korisnik = currentTour.getInt("id_tura");
-                tourInstance.naziv = currentTour.getString("naziv");
-                tourInstance.opis = currentTour.getString("opis");
-                tourInstance.cijena = currentTour.getDouble("cijena");
-                tourInstance.img_name = currentTour.getString("img_name");
-                tourInstance.img_path = currentTour.getString("img_path");
-                tourInstance.id_korisnik = currentTour.getInt("id_korisnik");
-                tourInstance.aktivan = currentTour.getInt("aktivan");
-
-                toursList.add(tourInstance);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
-
-
 }
