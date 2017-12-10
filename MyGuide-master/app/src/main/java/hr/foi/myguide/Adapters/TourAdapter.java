@@ -17,6 +17,7 @@ import java.util.List;
 
 import hr.foi.database.entities.Tour;
 import hr.foi.myguide.MyTour;
+import hr.foi.myguide.PocetnaStranica;
 import hr.foi.myguide.R;
 
 /**

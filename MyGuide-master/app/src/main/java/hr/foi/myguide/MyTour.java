@@ -46,6 +46,11 @@ public class MyTour extends AppCompatActivity implements TourAdapterListener {
 
         final Korisnik loggedUser = sessionManager.retrieveUser();
 
+        if (loggedUser.getId_tip_korisnika() == 2) {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setVisibility(View.INVISIBLE);
+        }
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

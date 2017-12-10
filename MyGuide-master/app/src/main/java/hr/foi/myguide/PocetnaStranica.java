@@ -2,6 +2,7 @@ package hr.foi.myguide;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.design.widget.NavigationView;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,15 +43,19 @@ public class PocetnaStranica extends AppCompatActivity
                 SessionManager sessionManager = new SessionManager(this);
 
                 final Korisnik loggedUser = sessionManager.retrieveUser();
+
+                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                fab.setVisibility(View.INVISIBLE);
+
                 recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 listTour = new ArrayList<>();
                 //creating recyclerview adapter
                 final TourAdapter adapter = new TourAdapter(this, listTour);
+
                 //setting adapter to recyclerview
                 recyclerView.setAdapter(adapter);
-
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -77,17 +83,6 @@ public class PocetnaStranica extends AppCompatActivity
                 Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
                 setSupportActionBar(toolbar);
 
-//                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//                fab.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Intent intent = new Intent(PocetnaStranica.this, AddTour.class);
-//                        PocetnaStranica.this.startActivity(intent);
-////                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-////                                .setAction("Action", null).show();
-//                    }
-//                });
-
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                         this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -98,15 +93,16 @@ public class PocetnaStranica extends AppCompatActivity
                 navigationView.setNavigationItemSelectedListener(this);
                 Menu menu =navigationView.getMenu();
                 menu.getItem(0).setChecked(true);
-                if(loggedUser.getId_tip_korisnika()==1){
+                if(loggedUser.getId_tip_korisnika()==2){
                     MenuItem confirm = menu.findItem(R.id.nav_confirmRes);
                     MenuItem myTours = menu.findItem(R.id.nav_myTours);
                     confirm.setVisible(false);
                     myTours.setVisible(false);
                 }
-                if(loggedUser.getId_tip_korisnika()==2){
+                if(loggedUser.getId_tip_korisnika()==1){
                     MenuItem reservation = menu.findItem(R.id.nav_reservation);
                     reservation.setVisible(false);
+
                 }
             }
 
