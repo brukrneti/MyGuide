@@ -8,4 +8,27 @@
     tools:context="hr.foi.myguide.EditProfile"
     tools:showIn="@layout/activity_edit_profile">
 
+    <ImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="368dp"
+        android:layout_height="168dp"
+        app:srcCompat="@mipmap/edit_profile"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/etUsername"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="223dp"
+        tools:text="Edit username" />
+
+    <TextView
+        android:id="@+id/etPassword"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="269dp"
+        tools:text="Edit password" />
 </android.support.constraint.ConstraintLayout>
