@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import hr.foi.database.entities.Korisnik;
+
 public class EditProfile extends AppCompatActivity {
 
     @Override
@@ -15,6 +17,9 @@ public class EditProfile extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        SessionManager sessionManager = new SessionManager(this);
+        final Korisnik loggedUser = sessionManager.retrieveUser();
+        
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
