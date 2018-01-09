@@ -50,11 +50,7 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
         final Button btnRegister = (Button) findViewById(R.id.btnRegister);
         rg = (RadioGroup) findViewById(R.id.ergRadioGroup);
         imageView = (ImageView) findViewById(R.id.imageViewReg);
-
         imageView.setOnClickListener(this);
-
-
-
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +67,6 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
                 byte[] imageBytes = baos.toByteArray();
                 String imageString = Base64.encodeToString(imageBytes, Base64.NO_WRAP);
 
-                //final Integer userType = Integer.parseInt(etUserType.getText().toString());
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
 
                     @Override
@@ -139,8 +134,6 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
 
             Cursor cursor = getContentResolver().query(selectedImage, projection, null, null, null);
             cursor.moveToFirst();
-
-            //Log.d(TAG, DatabaseUtils.dumpCursorToString(cursor));
 
             int columnIndex = cursor.getColumnIndex(projection[0]);
             String picturePath = cursor.getString(columnIndex); // returns null
