@@ -10,20 +10,39 @@ public class Korisnik {
     public String prezime;
     public String email;
     public String korisniko_ime;
+    public String img_path;
+    public String img_name;
     public Integer id_tip_korisnika;
 
+    public String getImg_path() {
+        return img_path;
+    }
+
+    public void setImg_path(String img_path) {
+        this.img_path = img_path;
+    }
+
+    public String getImg_name() {
+        return img_name;
+    }
+
+    public void setImg_name(String img_name) {
+        this.img_name = img_name;
+    }
 
     public  Korisnik(){
 
     }
 
 
-    public Korisnik(Integer id_korisnik, String ime, String prezime, String email, String korisniko_ime, Integer id_tip_korisnika) {
+    public Korisnik(Integer id_korisnik, String ime, String prezime, String email, String korisniko_ime,String img_path, String img_name, Integer id_tip_korisnika) {
         this.id_korisnik = id_korisnik;
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
         this.korisniko_ime = korisniko_ime;
+        this.img_name = img_name;
+        this.img_path = img_path;
         this.id_tip_korisnika = id_tip_korisnika;
     }
 
