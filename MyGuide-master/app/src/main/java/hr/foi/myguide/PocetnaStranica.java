@@ -151,6 +151,8 @@ public class PocetnaStranica extends AppCompatActivity
                 if(id == R.id.nav_home) {
 
                 }else if (id == R.id.nav_profile) {
+                    Intent intent = new Intent(PocetnaStranica.this, EditProfile.class);
+                    PocetnaStranica.this.startActivity(intent);
 
                 }else if (id == R.id.nav_reservation) {
 
