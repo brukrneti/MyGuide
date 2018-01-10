@@ -66,6 +66,8 @@ public class Prijava extends AppCompatActivity implements  Serializable {
                                         dataJSON.getString("prezime"),
                                         dataJSON.getString("email"),
                                         dataJSON.getString("korisnicko_ime"),
+                                        dataJSON.getString("img_path"),
+                                        dataJSON.getString("img_name"),
                                         dataJSON.getInt("id_tip_korisnika"));
 
 
