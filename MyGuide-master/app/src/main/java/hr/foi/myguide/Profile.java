@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,8 +60,17 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         etUserName = (EditText) findViewById(R.id.etUsernameEdit);
         etUserPassword = (EditText) findViewById(R.id.etPasswordEdit);
         etName = (EditText) findViewById(R.id.etNameEdit);
-        etLastname = (EditText) findViewById(R.id.etLastNameReg);
+        etLastname = (EditText) findViewById(R.id.etLastnameEdit);
         imageView = (ImageView) findViewById(R.id.ivProfileImage);
+
+        etUserName.setText(korisnik.getKorisniko_ime());
+        etUserPassword.setText("");
+        etName.setText(korisnik.getIme());
+        etLastname.setText(korisnik.getPrezime());
+        Picasso.with(this)
+                .load(korisnik.getImg_path())
+                .into(imageView);
+
         imageView.setOnClickListener(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
