@@ -77,6 +77,8 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
                             JSONObject dataJSON = jsonResponse.getJSONObject("data");
                             boolean success = dataJSON.getBoolean("success");
                             if (success) {
+                                Toast.makeText(getApplicationContext(), "You have successfully registered! Check your e-mail for activation link.",
+                                        Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(Registracija.this, Prijava.class);
                                 Registracija.this.startActivity(intent);
                             } else {
