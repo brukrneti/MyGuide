@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,10 +30,12 @@ import java.util.List;
 import hr.foi.database.entities.Korisnik;
 import hr.foi.database.entities.Tour;
 import hr.foi.myguide.Adapters.HomeAdapter;
+import hr.foi.myguide.Adapters.TourAdapter;
+import hr.foi.myguide.Adapters.TourAdapterListener;
 import hr.foi.webservice.ZahtjevZaTuru;
 
 public class PocetnaStranica extends AppCompatActivity
-            implements NavigationView.OnNavigationItemSelectedListener {
+            implements TourAdapterListener, NavigationView.OnNavigationItemSelectedListener {
             RecyclerView recyclerView;
             HomeAdapter adapter;
             List<Tour> listTour;
@@ -47,16 +50,22 @@ public class PocetnaStranica extends AppCompatActivity
                 FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
                 fab.setVisibility(View.INVISIBLE);
 
-               recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+                recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
                 listTour = new ArrayList<>();
+
                 //creating recyclerview adapter
-                final HomeAdapter adapter = new HomeAdapter(this, listTour);
+                final TourAdapter adapter = new TourAdapter(this, listTour);
 
                 //setting adapter to recyclerview
                 recyclerView.setAdapter(adapter);
+
+                adapter.setListener(this);
+
+
+
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -151,7 +160,7 @@ public class PocetnaStranica extends AppCompatActivity
                 if(id == R.id.nav_home) {
 
                 }else if (id == R.id.nav_profile) {
-                    Intent intent = new Intent(PocetnaStranica.this, EditProfile.class);
+                    Intent intent = new Intent(PocetnaStranica.this, Profile.class);
                     PocetnaStranica.this.startActivity(intent);
 
                 }else if (id == R.id.nav_reservation) {
@@ -177,6 +186,14 @@ public class PocetnaStranica extends AppCompatActivity
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
+    }
+
+    @Override
+    public void itemClicked(int position) {
+     //   Toast.makeText(this, "item na poziciji "+ position, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, TourDetails.class);
+        intent.putExtra("PARCELABLE_OBJEKT", listTour.get(position));
+        startActivity(intent);
     }
 
 }

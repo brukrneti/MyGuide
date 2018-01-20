@@ -63,9 +63,14 @@
             android:name=".TourMap"
             android:label="@string/title_activity_tour_map" />
         <activity
-            android:name=".EditProfile"
+            android:name=".Profile"
             android:label="@string/title_activity_edit_profile"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".EditPassword"
+            android:label="@string/title_activity_edit_profile"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".TourSchedule"></activity>
     </application>
 
 </manifest>
