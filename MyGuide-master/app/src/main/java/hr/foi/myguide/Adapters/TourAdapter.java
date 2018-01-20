@@ -73,7 +73,12 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
         });
         Picasso.with(mCtx)
                 .load(tour.getImg_path())
+                .fit()
+                .centerCrop()
                 .into(holder.imageView);
+
+
+
     }
 
     @Override

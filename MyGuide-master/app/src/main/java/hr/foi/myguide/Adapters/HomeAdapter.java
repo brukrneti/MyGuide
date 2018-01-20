@@ -68,6 +68,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.TourViewHolder
 
         Picasso.with(mCtx)
                 .load(tour.getImg_path())
+                .fit()
+                .centerCrop()
                 .into(holder.imageView);
     }
 

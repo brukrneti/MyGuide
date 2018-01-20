@@ -34,12 +34,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import hr.foi.database.entities.Korisnik;
-import hr.foi.database.entities.Tour;
-import hr.foi.webservice.ZahtjevZaBrisanjeTure;
 import hr.foi.webservice.ZahtjevZaUredenjeProfila;
-import hr.foi.webservice.ZahtjevZaUredjivanjeTure;
 
-public class EditProfile extends AppCompatActivity implements View.OnClickListener{
+public class Profile extends AppCompatActivity implements View.OnClickListener{
     private static final int RESULT_LOAD_IMAGE = 1;
     EditText etUserName, etUserPassword, etName, etLastname;
     ImageView imageView;
@@ -69,6 +66,8 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
         etLastname.setText(korisnik.getPrezime());
         Picasso.with(this)
                 .load(korisnik.getImg_path())
+                .fit()
+                .centerCrop()
                 .into(imageView);
 
         imageView.setOnClickListener(this);
@@ -148,11 +147,11 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                                 etName.setText("");
                                 etLastname.setText("");
                                 imageView.setImageResource(android.R.color.transparent);
-                                Intent intent = new Intent(EditProfile.this, EditProfile.class);
-                                EditProfile.this.startActivity(intent);
+                                Intent intent = new Intent(Profile.this, Profile.class);
+                                Profile.this.startActivity(intent);
                                 finish();
                             } else{
-                                AlertDialog.Builder builder = new AlertDialog.Builder(EditProfile.this);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
                                 builder.setMessage("Error.")
                                         .setNegativeButton("Try again", null)
                                         .create()
@@ -164,15 +163,21 @@ public class EditProfile extends AppCompatActivity implements View.OnClickListen
                     }
                 };
                 ZahtjevZaUredenjeProfila zahtjevZaUredenjeProfila = new ZahtjevZaUredenjeProfila(idKorisnik, username, password, name, lastname, imageName, imageString,responseListener);
-                RequestQueue queue = Volley.newRequestQueue(EditProfile.this);
+                RequestQueue queue = Volley.newRequestQueue(Profile.this);
                 queue.add(zahtjevZaUredenjeProfila);
             }else if(TextUtils.isEmpty(etUserName.getText().toString()) || TextUtils.isEmpty(etUserPassword.getText().toString()) || TextUtils.isEmpty(etName.getText().toString()) || TextUtils.isEmpty(etLastname.getText().toString())){
-                AlertDialog.Builder builder = new AlertDialog.Builder(EditProfile.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
                 builder.setMessage("You must fill in all the fields.")
                         .setNegativeButton("Try again", null)
                         .create()
                         .show();
         }}
+        if(item.getItemId()== android.R.id.home){
+            Intent intent = new Intent(Profile.this, PocetnaStranica.class);
+            Profile.this.startActivity(intent);
+            finish();
+        }
         return super.onOptionsItemSelected(item);
     }
+
 }
