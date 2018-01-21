@@ -38,36 +38,40 @@ import hr.foi.webservice.ZahtjevZaUredenjeProfila;
 
 public class Profile extends AppCompatActivity implements View.OnClickListener{
     private static final int RESULT_LOAD_IMAGE = 1;
-    EditText etUserName, etUserPassword, etName, etLastname;
+    EditText  etName, etLastname;
     ImageView imageView;
     Button btnUpload;
     String imageName;
     private Korisnik korisnik;
+
+    Profile pomocniObjekt;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Edit profile");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         SessionManager sessionManager = new SessionManager(this);
+
+        pomocniObjekt = this;
+
         korisnik = sessionManager.retrieveUser();
-        etUserName = (EditText) findViewById(R.id.etUsernameEdit);
-        etUserPassword = (EditText) findViewById(R.id.etPasswordEdit);
         etName = (EditText) findViewById(R.id.etNameEdit);
         etLastname = (EditText) findViewById(R.id.etLastnameEdit);
         imageView = (ImageView) findViewById(R.id.ivProfileImage);
-
-        etUserName.setText(korisnik.getKorisniko_ime());
-        etUserPassword.setText("");
         etName.setText(korisnik.getIme());
         etLastname.setText(korisnik.getPrezime());
+
         Picasso.with(this)
                 .load(korisnik.getImg_path())
                 .fit()
-                .centerCrop()
+                .centerInside()
                 .into(imageView);
 
         imageView.setOnClickListener(this);
@@ -118,10 +122,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     {
         Integer id = item.getItemId();
         if(id == R.id.save){
-            if(!TextUtils.isEmpty(etUserName.getText().toString()) && !TextUtils.isEmpty(etUserPassword.getText().toString()) && !TextUtils.isEmpty(etName.getText().toString()) && !TextUtils.isEmpty(etLastname.getText().toString())){
-
-                final String username = etUserName.getText().toString();
-                final String password = etUserPassword.getText().toString();
+            if(!TextUtils.isEmpty(etName.getText().toString()) && !TextUtils.isEmpty(etLastname.getText().toString())){
                 final String name = etName.getText().toString();
                 final String lastname = etLastname.getText().toString();
                 final Integer idKorisnik = korisnik.getId_korisnik();
@@ -140,13 +141,27 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                             JSONObject dataJSON = jsonResponse.getJSONObject("data");
                             boolean success = dataJSON.getBoolean("success");
                             if (success) {
+                                //imageView.setImageResource(android.R.color.transparent);
+                                korisnik.setIme(dataJSON.getString("ime"));
+                                korisnik.setPrezime(dataJSON.getString("prezime"));
+                                korisnik.setEmail(dataJSON.getString("email"));
+                                korisnik.setImg_name(dataJSON.getString("img_name"));
+                                korisnik.setImg_path(dataJSON.getString("img_path"));
+
+                                SessionManager sessionManager = new SessionManager(pomocniObjekt);
+                                sessionManager.createLoginSession(korisnik);
+
+                                etName.setText(dataJSON.getString("ime"));
+                                etLastname.setText(dataJSON.getString("prezime"));
+                                Picasso.with(pomocniObjekt)
+                                        .load(korisnik.getImg_path())
+                                        .fit()
+                                        .centerInside()
+                                        .into(imageView);
+
                                 Toast.makeText(getApplicationContext(), "Profile has been successfully updated.",
                                         Toast.LENGTH_LONG).show();
-                                etUserName.setText("");
-                                etUserPassword.setText("");
-                                etName.setText("");
-                                etLastname.setText("");
-                                imageView.setImageResource(android.R.color.transparent);
+
                                 Intent intent = new Intent(Profile.this, Profile.class);
                                 Profile.this.startActivity(intent);
                                 finish();
@@ -162,10 +177,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                         }
                     }
                 };
-                ZahtjevZaUredenjeProfila zahtjevZaUredenjeProfila = new ZahtjevZaUredenjeProfila(idKorisnik, username, password, name, lastname, imageName, imageString,responseListener);
+                ZahtjevZaUredenjeProfila zahtjevZaUredenjeProfila = new ZahtjevZaUredenjeProfila(idKorisnik,name, lastname, imageName, imageString,responseListener);
                 RequestQueue queue = Volley.newRequestQueue(Profile.this);
                 queue.add(zahtjevZaUredenjeProfila);
-            }else if(TextUtils.isEmpty(etUserName.getText().toString()) || TextUtils.isEmpty(etUserPassword.getText().toString()) || TextUtils.isEmpty(etName.getText().toString()) || TextUtils.isEmpty(etLastname.getText().toString())){
+            }else if(TextUtils.isEmpty(etName.getText().toString()) || TextUtils.isEmpty(etLastname.getText().toString())){
                 AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
                 builder.setMessage("You must fill in all the fields.")
                         .setNegativeButton("Try again", null)
