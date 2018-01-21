@@ -1,71 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:weightSum="1">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardID"
+    <RelativeLayout
+
+        android:id="@+id/id_layoutRV"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/textViewTourId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.11"
+            android:text="TextView"
+            android:textAlignment="viewStart"
+            android:textSize="8sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        >
 
-        <RelativeLayout
-            android:id="@+id/id_layoutRV"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="174dp"
-            android:clickable="true"
-            android:padding="8dp">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="120dp"
-                android:layout_height="90dp"
-                android:padding="4dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:id="@+id/linearLayout"
+            android:layout_marginTop="20dp"
+            >
 
 
             <TextView
                 android:id="@+id/textViewTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="5dp"
-                android:text="nesto"
+                android:layout_above="@+id/textViewPrice"
+                android:layout_weight="0.70"
+                android:gravity="center|left"
+                android:text="Naziv ture"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="#000000" />
+                android:textColor="@color/colorTextDarkGrey"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textViewPrice"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="TextView"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:layout_alignParentBottom="true"
-                android:layout_toEndOf="@+id/textViewTourId" />
+                android:layout_alignParentStart="true"
+                android:layout_weight=".30"
+                android:gravity="center|right"
+                android:text="Cijena"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="@color/colorTextDarkGrey"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/dividerLine"
+            android:layout_below="@+id/linearLayout"
+            style="@style/Divider"
+            />
+
+        <TextView
+            android:id="@+id/textViewShortDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dividerLine"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="0.11"
+            android:fontFamily="sans-serif"
+            android:gravity="center|left"
+            android:text="Opis"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:textColor="@color/colorTextDarkGrey"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/dividerLine1"
+            style="@style/Divider"
+            android:layout_below="@+id/textViewShortDesc" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dividerLine1"
+            android:orientation="vertical">
+
 
             <TextView
-                android:id="@+id/textViewTourId"
+                android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:text="TextView"
-                android:visibility="invisible" />
+                android:layout_weight="1"
+                android:text="Guide:"
+                android:textColor="@color/labelColor" />
 
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:gravity="center|left"
+                android:text="Ime i prezime vodiča"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="@color/colorTextDarkGrey"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-    </android.support.v7.widget.CardView>
+        </LinearLayout>
 
-    <include
-        layout="@layout/activity_tour_map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="15.67" />
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout1"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Contact:"
+                android:textColor="@color/labelColor" />
+
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="0.11"
+                android:gravity="center|left"
+                android:text="Kontakt vodiča"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="@color/colorTextDarkGrey"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnAddSchedule"
+                android:layout_width="126dp"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
 
 </LinearLayout>
