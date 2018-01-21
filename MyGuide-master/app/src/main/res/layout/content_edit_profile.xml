@@ -10,83 +10,94 @@
     tools:layout_editor_absoluteY="81dp"
     tools:layout_editor_absoluteX="0dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivProfileImage"
-        android:layout_width="123dp"
-        android:layout_height="120dp"
-        android:src="@drawable/logo"
-        app:civ_border_width="2dp"
-        app:civ_border_color="#FF000000"
-        app:layout_constraintBottom_toTopOf="@+id/etUsernameEdit"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.388"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+    <RelativeLayout
 
-
-
-    <EditText
-        android:id="@+id/etUsernameEdit"
+        android:id="@+id/id_layoutRV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName"
+        android:clickable="true"
+        tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/etPasswordEdit"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/etPasswordEdit"
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivProfileImage"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:src="@drawable/logo"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
+            tools:layout_editor_absoluteX="-3dp"
+            tools:layout_editor_absoluteY="34dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="33dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPersonName"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/etNameEdit"
-        app:layout_constraintRight_toRightOf="@+id/etUsernameEdit"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="9dp"
-        app:layout_constraintLeft_toLeftOf="@+id/etUsernameEdit" />
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
 
-    <EditText
-        android:id="@+id/etNameEdit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
+        tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/etLastnameEdit"
-        app:layout_constraintRight_toRightOf="@+id/etPasswordEdit"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="178dp"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintLeft_toLeftOf="@+id/etPasswordEdit" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/etLastnameEdit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Lastname"
-        android:inputType="textPersonName"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/etNameEdit"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="98dp"
-        app:layout_constraintLeft_toLeftOf="@+id/etNameEdit" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout1"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Personal info:"
+                android:textColor="@color/labelColor" />
+
+            <EditText
+                android:id="@+id/etNameEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="84dp"
+                tools:layout_editor_absoluteY="323dp" />
+
+            <EditText
+                android:id="@+id/etLastnameEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Lastname"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="309dp" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
