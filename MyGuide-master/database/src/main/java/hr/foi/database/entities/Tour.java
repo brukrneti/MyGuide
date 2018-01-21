@@ -27,6 +27,11 @@ public class Tour implements Parcelable{
     public String img_path;
     public Integer id_korisnik;
     public Integer aktivan;
+    public String ime_vodica;
+    public String prezime_vodica;
+    public String email_vodica;
+
+
 
     public List<Tour> toursList = new ArrayList<Tour>();
 
@@ -34,7 +39,7 @@ public class Tour implements Parcelable{
 
     }
 
-    public Tour(String naziv, String opis,Double cijena, String img_name, String img_path, Integer id_korisnik) {
+    public Tour(String naziv, String opis,Double cijena, String img_name, String img_path, Integer id_korisnik, String ime_vodica, String prezime_vodica, String email_vodica) {
         //this.id_tura = id_tura;
         this.naziv = naziv;
         this.opis = opis;
@@ -42,6 +47,9 @@ public class Tour implements Parcelable{
         this.img_name = img_name;
         this.img_path = img_path;
         this.id_korisnik = id_korisnik;
+        this.ime_vodica = ime_vodica;
+        this.prezime_vodica = prezime_vodica;
+        this.email_vodica = email_vodica;
         //this.aktivan = aktivan;
     }
 
@@ -53,6 +61,9 @@ public class Tour implements Parcelable{
         img_name = in.readString();
         img_path = in.readString();
         id_korisnik = in.readInt();
+        ime_vodica = in.readString();
+        prezime_vodica = in.readString();
+        email_vodica = in.readString();
         aktivan = in.readInt();
         toursList = in.createTypedArrayList(Tour.CREATOR);
     }
@@ -66,6 +77,9 @@ public class Tour implements Parcelable{
         dest.writeString(img_name);
         dest.writeString(img_path);
         dest.writeInt(id_korisnik);
+        dest.writeString(ime_vodica);
+        dest.writeString(prezime_vodica);
+        dest.writeString(email_vodica);
         dest.writeInt(aktivan);
         dest.writeTypedList(toursList);
     }
@@ -139,6 +153,30 @@ public class Tour implements Parcelable{
         this.id_korisnik = id_korisnik;
     }
 
+    public String getIme_vodica() {
+        return ime_vodica;
+    }
+
+    public void setIme_vodica(String ime_vodica) {
+        this.ime_vodica = ime_vodica;
+    }
+
+    public String getPrezime_vodica() {
+        return prezime_vodica;
+    }
+
+    public void setPrezime_vodica(String prezime_vodica) {
+        this.prezime_vodica = prezime_vodica;
+    }
+
+    public String getEmail_vodica() {
+        return email_vodica;
+    }
+
+    public void setEmail_vodica(String email_vodica) {
+        this.email_vodica = email_vodica;
+    }
+
     public Integer getAktivan() {
         return aktivan;
     }
@@ -161,6 +199,9 @@ public class Tour implements Parcelable{
                 tourInstance.img_name = currentTour.getString("img_name");
                 tourInstance.img_path = currentTour.getString("img_path");
                 tourInstance.id_korisnik = currentTour.getInt("id_korisnik");
+                tourInstance.ime_vodica = currentTour.getString("ime_vodica");
+                tourInstance.prezime_vodica = currentTour.getString("prezime_vodica");
+                tourInstance.email_vodica = currentTour.getString("email_vodica");
                 tourInstance.aktivan = currentTour.getInt("aktivan");
 
                 toursList.add(tourInstance);
