@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -17,12 +16,8 @@ import java.util.List;
 
 import hr.foi.database.entities.Tour;
 import hr.foi.myguide.MyTour;
-import hr.foi.myguide.PocetnaStranica;
 import hr.foi.myguide.R;
 
-/**
- * Created by Mateo on 7.12.2017..
- */
 
 public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder> {
     private Context mCtx;
@@ -47,7 +42,7 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
     @Override
     public TourViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.list_layout, null);
+        View view = inflater.inflate(R.layout.list_tour_layout, null);
         return new TourViewHolder(view);
     }
 
@@ -55,16 +50,9 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
     public void onBindViewHolder(TourViewHolder holder, final int position) {
         Tour tour = tourList.get(position);
         holder.textViewTitle.setText(tour.getNaziv());
-        holder.textViewDesc.setText(tour.getOpis());
-        holder.textViewPrice.setText(tour.getCijena().toString() + "kn per person");
+        holder.textViewPrice.setText(String.format("%.2f", tour.getCijena()) + "kn");
         holder.textViewTourId.setText(tour.getId_tura().toString());
-//        holder.id_layoutRVview.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                Toast.makeText(mCtx, "Long clicked", Toast.LENGTH_SHORT).show();
-//                return false;
-//            }
-//        });
+
         holder.id_layoutRVview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,9 +64,6 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
                 .fit()
                 .centerCrop()
                 .into(holder.imageView);
-
-
-
     }
 
     @Override
@@ -111,14 +96,11 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
             super(itemView);
 
             itemView.setOnClickListener(this);
-            //imageView = itemView.findViewById(R.id.imageView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
-            textViewDesc = itemView.findViewById(R.id.textViewShortDesc);
             imageView = itemView.findViewById(R.id.imageView);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             textViewTourId = itemView.findViewById(R.id.textViewTourId);
             id_layoutRVview = itemView.findViewById(R.id.id_layoutRV);
-            //textViewImgPath = itemView.findViewById(R.id.textViewImgName)
         }
 
         @Override
