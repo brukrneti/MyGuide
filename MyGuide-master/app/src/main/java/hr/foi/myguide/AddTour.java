@@ -117,7 +117,7 @@ public class AddTour extends AppCompatActivity implements View.OnClickListener{
 
             }else if(TextUtils.isEmpty(etTourName.getText().toString()) || TextUtils.isEmpty(etTourDescription.getText().toString()) || TextUtils.isEmpty(etTourPrice.getText().toString())){
                     AlertDialog.Builder builder = new AlertDialog.Builder(AddTour.this);
-                    builder.setMessage("You must fill in all of the field.")
+                    builder.setMessage("Please fill out all the fields.")
                             .setNegativeButton("Try again", null)
                             .create()
                             .show();

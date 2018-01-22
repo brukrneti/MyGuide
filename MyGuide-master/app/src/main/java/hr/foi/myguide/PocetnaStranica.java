@@ -37,7 +37,6 @@ import hr.foi.webservice.ZahtjevZaTuru;
 public class PocetnaStranica extends AppCompatActivity
             implements TourAdapterListener, NavigationView.OnNavigationItemSelectedListener {
             RecyclerView recyclerView;
-            HomeAdapter adapter;
             List<Tour> listTour;
             @Override
             protected void onCreate(Bundle savedInstanceState) {

@@ -1,7 +1,6 @@
 package hr.foi.myguide.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import hr.foi.database.entities.Tour;
-import hr.foi.myguide.MyTour;
-import hr.foi.myguide.PocetnaStranica;
 import hr.foi.myguide.R;
 
 /**
@@ -47,7 +43,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.TourViewHolder
     @Override
     public TourViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.list_layout, null);
+        View view = inflater.inflate(R.layout.list_tour_layout, null);
         return new TourViewHolder(view);
     }
 
@@ -56,7 +52,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.TourViewHolder
         Tour tour = tourList.get(position);
         holder.textViewTitle.setText(tour.getNaziv());
         holder.textViewDesc.setText(tour.getOpis());
-        holder.textViewPrice.setText(tour.getCijena().toString() + "kn per person");
+        //holder.textViewPrice.setText(tour.getCijena().toString() + "kn");
+        holder.textViewPrice.setText(String.format("%.2f", tour.getCijena()) + "kn");
         holder.textViewTourId.setText(tour.getId_tura().toString());
 //        holder.id_layoutRVview.setOnLongClickListener(new View.OnLongClickListener() {
 //            @Override
@@ -103,7 +100,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.TourViewHolder
             super(itemView);
             //imageView = itemView.findViewById(R.id.imageView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
-            textViewDesc = itemView.findViewById(R.id.textViewShortDesc);
+            //textViewDesc = itemView.findViewById(R.id.textViewShortDesc);
             imageView = itemView.findViewById(R.id.imageView);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             textViewTourId = itemView.findViewById(R.id.textViewTourId);
@@ -111,4 +108,5 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.TourViewHolder
             //textViewImgPath = itemView.findViewById(R.id.textViewImgName)
         }
     }
+
 }

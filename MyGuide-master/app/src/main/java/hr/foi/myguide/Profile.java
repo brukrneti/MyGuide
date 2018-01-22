@@ -44,7 +44,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     String imageName;
     private Korisnik korisnik;
 
-    Profile pomocniObjekt;
 
 
     @Override
@@ -58,8 +57,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         SessionManager sessionManager = new SessionManager(this);
-
-        pomocniObjekt = this;
 
         korisnik = sessionManager.retrieveUser();
         etName = (EditText) findViewById(R.id.etNameEdit);
@@ -148,12 +145,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                                 korisnik.setImg_name(dataJSON.getString("img_name"));
                                 korisnik.setImg_path(dataJSON.getString("img_path"));
 
-                                SessionManager sessionManager = new SessionManager(pomocniObjekt);
+                                SessionManager sessionManager = new SessionManager(Profile.this);
                                 sessionManager.createLoginSession(korisnik);
 
                                 etName.setText(dataJSON.getString("ime"));
                                 etLastname.setText(dataJSON.getString("prezime"));
-                                Picasso.with(pomocniObjekt)
+                                Picasso.with(Profile.this)
                                         .load(korisnik.getImg_path())
                                         .fit()
                                         .centerInside()

@@ -12,7 +12,7 @@ import java.util.Map;
  */
 
 public class ZahtjevZaTermin extends StringRequest {
-    private static final String REGISTER_REQUEST_URL = "http://yeloo.hr/AiR/MyGuideWebServices/Termin/fetchTermin";
+    private static final String REGISTER_REQUEST_URL = "http://yeloo.hr/AiR/MyGuideWebServices/Termin/fetchTerminByTour";
     private Map<String, String> params;
     public ZahtjevZaTermin(Integer id_tura,Response.Listener<String> listener) {
         super(Request.Method.POST, REGISTER_REQUEST_URL, listener, null);

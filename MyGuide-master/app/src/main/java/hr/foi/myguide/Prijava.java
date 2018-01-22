@@ -34,6 +34,10 @@ public class Prijava extends AppCompatActivity implements  Serializable {
         final Button btnLogin = (Button) findViewById(R.id.btnLogin);
         final TextView tvSignUp = (TextView) findViewById(R.id.tvSignUp);
 
+        etUsername.setText("matkantoc");
+        etPassword.setText("matkantoc");
+
+
         final SessionManager sessionManager = new SessionManager(this);
 
         tvSignUp.setOnClickListener(new View.OnClickListener(){

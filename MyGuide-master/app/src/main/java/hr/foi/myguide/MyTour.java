@@ -140,6 +140,7 @@ public class MyTour extends AppCompatActivity implements TourAdapterListener {
     public void itemClicked(int position) {
         //Toast.makeText(this, "item na poziciji "+ position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, TourDetails.class);
+        intent.putExtra("caller", "MyTour");
         intent.putExtra("PARCELABLE_OBJEKT", listTour.get(position));
         startActivity(intent);
     }
