@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
@@ -94,9 +95,12 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
                     }
                 };
 
+
                 ZahtjevZaRegistraciju zahtjevZaRegistraciju = new ZahtjevZaRegistraciju(firstName, lastName, email, username, password,imageName, imageString,userType , responseListener);
                 RequestQueue queue = Volley.newRequestQueue(Registracija.this);
                 queue.add(zahtjevZaRegistraciju);
+
+
             }
         });
 
@@ -106,11 +110,11 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
         rb = (RadioButton) findViewById(radioButtonid);
 
         if(rb.getText().equals("Guide")){
-            userType = 2;
+            userType = 1;
 
         }
         if(rb.getText().equals("Tourist")){
-            userType = 3;
+            userType = 2;
 
         }
     }

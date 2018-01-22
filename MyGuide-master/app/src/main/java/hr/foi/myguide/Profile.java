@@ -73,6 +73,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
 
         imageView.setOnClickListener(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -2,12 +2,10 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
     >
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -197,18 +195,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:backgroundTint="@color/labelColor"
+            android:backgroundTint="@android:color/holo_red_light"
             android:text="Add schedule"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="@color/colorText" />
 
         <Button
 
             android:id="@+id/btnViewSchedules"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/labelColor"
+            android:backgroundTint="@android:color/holo_red_light"
             android:text="View Schedules"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="@color/colorText" />
     </LinearLayout>
 
 

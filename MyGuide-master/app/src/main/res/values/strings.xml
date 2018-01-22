@@ -13,4 +13,5 @@
     <string name="title_activity_tour_schedule">TourSchedule</string>
     <string name="title_activity_view_schedule">ViewSchedule</string>
     <string name="title_activity_tour_schedule_detail">TourScheduleDetail</string>
+    <string name="title_activity_add_reservation">AddReservation</string>
 </resources>

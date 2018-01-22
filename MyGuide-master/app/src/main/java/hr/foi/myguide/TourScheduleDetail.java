@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,7 +61,7 @@ import hr.foi.database.entities.Termin;
 public class TourScheduleDetail extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, LocationListener {
     TextView tourStartTextView, tourEndTextView, meetingPointTextView, noteTextView, terminIdTextView;
     private Termin termin;
-
+    Button btnBook;
     //Declaring gMaps variables
     MapFragment mMapFragment;
     private GoogleMap mMap;
@@ -111,8 +112,20 @@ public class TourScheduleDetail extends AppCompatActivity implements OnMapReadyC
                 .findFragmentById(R.id.gMapsFragment);
         mapFragment.getMapAsync(this);
 
+        btnBook = (Button) findViewById(R.id.btnBookSchedule) ;
+
+        btnBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Intent intent = new Intent(TourScheduleDetail.this, AddReservation.class);
+                    intent.putExtra("PARCELABLE_OBJEKT", termin);
+                    startActivity(intent);
+
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

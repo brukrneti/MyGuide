@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import hr.foi.database.entities.Korisnik;
 import hr.foi.database.entities.Tour;
 import hr.foi.webservice.ZahtjevZaBrisanjeTure;
 
@@ -44,7 +45,16 @@ public class TourDetails extends AppCompatActivity {
         getSupportActionBar().setTitle("Tour details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        Intent i = getIntent();
+
+
+        SessionManager sessionManager = new SessionManager(this);
+        final Korisnik loggedUser = sessionManager.retrieveUser();
+
+        if (loggedUser.getId_tip_korisnika() == 2) {
+            Button btnAddSchedule = (Button) findViewById(R.id.btnAddSchedule);
+            btnAddSchedule.setVisibility(View.GONE);
+        }
+
         tour = getIntent().getParcelableExtra("PARCELABLE_OBJEKT");
         textViewTourId  = (TextView) findViewById(R.id.textViewTourId);
         textViewTitle = (TextView) findViewById(R.id.textViewTitle);

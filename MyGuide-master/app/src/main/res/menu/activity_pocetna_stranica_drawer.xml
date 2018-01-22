@@ -28,14 +28,6 @@
     <item android:title="">
         <menu>
             <item
-                android:id="@+id/nav_map"
-                android:icon="@mipmap/ic_google"
-                android:title="Google map" />
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_share"
-                android:title="About us" />
-            <item
                 android:id="@+id/nav_logout"
                 android:icon="@mipmap/ic_logout"
                 android:title="Log Out" />
