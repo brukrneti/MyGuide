@@ -18,12 +18,39 @@ import java.util.List;
  */
 
 public class Termin implements Parcelable {
-    public int id_termin;
+    public Integer id_termin;
     public String vrijeme_od;
     public String vrijeme_do;
     public String napomena;
-    public int id_mjesto_sastanka;
-    public int id_tura;
+    public Integer id_mjesto_sastanka;
+    public Integer id_tura;
+    public String adresa;
+    public Double latitude;
+    public Double longitude;
+
+    public String getAdresa() {
+        return adresa;
+    }
+
+    public void setAdresa(String adresa) {
+        this.adresa = adresa;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 
     public List<Termin> terminList = new ArrayList<Termin>();
 
@@ -31,28 +58,43 @@ public class Termin implements Parcelable {
 
     }
 
-    public Termin(int id_termin, String vrijeme_od,String vrijeme_do, String napomena, int id_mjesto_sastanka, Integer id_tura) {
+    public Termin(Integer id_termin, String vrijeme_od,String vrijeme_do, String napomena, Integer id_mjesto_sastanka, Integer id_tura, String adresa, Double latitude, Double longitude) {
         this.id_termin = id_termin;
         this.vrijeme_od = vrijeme_od;
         this.vrijeme_do = vrijeme_do;
         this.napomena = napomena;
         this.id_mjesto_sastanka = id_mjesto_sastanka;
         this.id_tura = id_tura;
+        this.adresa = adresa;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     protected Termin(Parcel in) {
-
+        id_termin = in.readInt();
+        vrijeme_od = in.readString();
+        vrijeme_do = in.readString();
+        napomena = in.readString();
+        id_mjesto_sastanka = in.readInt();
+        id_tura = in.readInt();
+        adresa = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
         terminList = in.createTypedArrayList(Termin.CREATOR);
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id_termin);
-        dest.writeSerializable(vrijeme_od);
-        dest.writeSerializable(vrijeme_do);
+        dest.writeString(vrijeme_od);
+        dest.writeString(vrijeme_do);
         dest.writeString(napomena);
         dest.writeInt(id_mjesto_sastanka);
         dest.writeInt(id_tura);
+        dest.writeString(adresa);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+
         dest.writeTypedList(terminList);
     }
 
@@ -74,11 +116,11 @@ public class Termin implements Parcelable {
     };
 
 
-    public int getId_termin() {
+    public Integer getId_termin() {
         return id_termin;
     }
 
-    public void setId_termin(int id_termin) {
+    public void setId_termin(Integer id_termin) {
         this.id_termin = id_termin;
     }
 
@@ -106,19 +148,19 @@ public class Termin implements Parcelable {
         this.napomena = napomena;
     }
 
-    public int getId_mjesto_sastanka() {
+    public Integer getId_mjesto_sastanka() {
         return id_mjesto_sastanka;
     }
 
-    public void setId_mjesto_sastanka(int id_mjesto_sastanka) {
+    public void setId_mjesto_sastanka(Integer id_mjesto_sastanka) {
         this.id_mjesto_sastanka = id_mjesto_sastanka;
     }
 
-    public int getId_tura() {
+    public Integer getId_tura() {
         return id_tura;
     }
 
-    public void setId_tura(int id_tura) {
+    public void setId_tura(Integer id_tura) {
         this.id_tura = id_tura;
     }
 
@@ -135,6 +177,9 @@ public class Termin implements Parcelable {
                 tourInstance.napomena = currentTermin.getString("napomena");
                 tourInstance.id_mjesto_sastanka = currentTermin.getInt("id_mjesto_sastanka");
                 tourInstance.id_tura = currentTermin.getInt("id_tura");
+                tourInstance.adresa = currentTermin.getString("adresa");
+                tourInstance.latitude = currentTermin.getDouble("latitude");
+                tourInstance.longitude = currentTermin.getDouble("longitude");
                 terminList.add(tourInstance);
 
             } catch (JSONException e) {
