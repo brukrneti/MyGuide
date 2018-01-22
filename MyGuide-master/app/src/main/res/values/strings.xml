@@ -10,4 +10,7 @@
     <string name="title_activity_tour_details">TourDetails</string>
     <string name="title_activity_tour_map">Map</string>
     <string name="title_activity_edit_profile">EditProfile</string>
+    <string name="title_activity_tour_schedule">TourSchedule</string>
+    <string name="title_activity_view_schedule">ViewSchedule</string>
+    <string name="title_activity_tour_schedule_detail">TourScheduleDetail</string>
 </resources>
