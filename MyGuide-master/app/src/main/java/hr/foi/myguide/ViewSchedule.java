@@ -106,9 +106,19 @@ public class ViewSchedule extends AppCompatActivity implements TerminAdapterList
 
     @Override
     public void itemClicked(int position) {
-        //   Toast.makeText(this, "item na poziciji "+ position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, TourScheduleDetail.class);
         intent.putExtra("PARCELABLE_OBJEKT", listTermin.get(position));
+        intent.putExtra("PARCELABLE_OBJEKT_TURA", tour);////dodano nakon Github commita
+        intent.putExtra("typeOfDisplay","google");
+        startActivity(intent);
+    }
+
+    @Override
+    public void itemLongClicked(int position) {
+        Intent intent = new Intent(this, TourScheduleDetail.class);
+        intent.putExtra("PARCELABLE_OBJEKT", listTermin.get(position));
+        intent.putExtra("PARCELABLE_OBJEKT_TURA", tour);////dodano nakon Github commita
+        intent.putExtra("typeOfDisplay","basic");
         startActivity(intent);
     }
 }
