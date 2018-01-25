@@ -32,7 +32,7 @@ public class TerminAdapter extends RecyclerView.Adapter<TerminAdapter.TerminView
     public void updateTerminsList(List<Termin> updatedList) {
         terminList.clear();
         terminList.addAll(updatedList);
-        this.notifyDataSetChanged();
+        this.notifyDataSetChanged(); //Notifies the attached observers that the underlying data has been changed and any View reflecting the data set should refresh itself.
     }
 
     public void setListener(TerminAdapterListener listener) {
@@ -66,6 +66,13 @@ public class TerminAdapter extends RecyclerView.Adapter<TerminAdapter.TerminView
                 terminAdapterListener.itemClicked(position);
             }
         });
+        holder.tourScheduleListLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                terminAdapterListener.itemLongClicked(position);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -89,13 +96,13 @@ public class TerminAdapter extends RecyclerView.Adapter<TerminAdapter.TerminView
         }
     }
 
-    class TerminViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class TerminViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         TextView tourStartTextView, tourEndTextView, meetingPointTextView, noteTextView, terminIdTextView;
         LinearLayout tourScheduleListLayout;
 
         public TerminViewHolder(View itemView) {
             super(itemView);
-
+            itemView.setOnLongClickListener(this);
             itemView.setOnClickListener(this);
             terminIdTextView = itemView.findViewById(R.id.terminIdTextView);
             tourStartTextView = itemView.findViewById(R.id.tourStartTextView);
@@ -107,20 +114,30 @@ public class TerminAdapter extends RecyclerView.Adapter<TerminAdapter.TerminView
 
         }
 
-        @Override
-        public void onClick(View v) {
+        private void setActivity(String typeOfDisplay){
 
             Integer terminId = Integer.parseInt(terminIdTextView.getText().toString());
             Termin instanceToEdit;
 
+            Intent intent = new Intent(mCtx, TourSchedule.class);
             for (int i = 0; i < terminList.size(); i++) {
                 if (terminList.get(i).id_termin == terminId) {
                     instanceToEdit = terminList.get(i);
-                    Intent intent = new Intent(mCtx, TourSchedule.class);
                     intent.putExtra("terminToEdit", instanceToEdit);
-                    mCtx.startActivity(intent);
+
                 }
             }
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            setActivity("extraModule");
+            return true;
+        }
+
+        @Override
+        public void onClick(View v) {
+            setActivity("googleModule");
         }
     }
 }
