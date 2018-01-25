@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -78,10 +79,9 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
                             JSONObject dataJSON = jsonResponse.getJSONObject("data");
                             boolean success = dataJSON.getBoolean("success");
                             if (success) {
-                                Toast.makeText(getApplicationContext(), "You have successfully registered! Check your e-mail for activation link.",
-                                        Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "You have successfully registered! Check your e-mail for activation link.", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(Registracija.this, Prijava.class);
-                                Registracija.this.startActivity(intent);
+                                startActivity(intent);
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(Registracija.this);
                                 builder.setMessage("Registracija neuspješna")
@@ -94,11 +94,21 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 };
+                if (TextUtils.isEmpty(etFirstName.getText()) || TextUtils.isEmpty(etLastName.getText()) || TextUtils.isEmpty(etUsername.getText()) || TextUtils.isEmpty(etEmail.getText()) || TextUtils.isEmpty(etPassword.getText())) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Registracija.this);
+                    builder.setMessage("Please fill out all the fields.")
+                            .setNegativeButton("Try again", null)
+                            .create()
+                            .show();
+                }
+                else{
+                    ZahtjevZaRegistraciju zahtjevZaRegistraciju = new ZahtjevZaRegistraciju(firstName, lastName, email, username, password,imageName, imageString,userType , responseListener);
+                    zahtjevZaRegistraciju.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 0,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                    RequestQueue queue = Volley.newRequestQueue(Registracija.this);
+                    queue.add(zahtjevZaRegistraciju);
+                }
 
-
-                ZahtjevZaRegistraciju zahtjevZaRegistraciju = new ZahtjevZaRegistraciju(firstName, lastName, email, username, password,imageName, imageString,userType , responseListener);
-                RequestQueue queue = Volley.newRequestQueue(Registracija.this);
-                queue.add(zahtjevZaRegistraciju);
 
 
             }

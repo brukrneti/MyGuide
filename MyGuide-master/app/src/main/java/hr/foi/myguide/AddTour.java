@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -111,6 +112,8 @@ public class AddTour extends AppCompatActivity implements View.OnClickListener{
                         }
                     };
                     ZahtjevZaDodavanjeTure zahtjevZaDodavanjeTure = new ZahtjevZaDodavanjeTure(tourName, tourDescription, tourPrice, imageName, imageString, idKorisnik, responseListener);
+                    zahtjevZaDodavanjeTure.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 0,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     RequestQueue queue = Volley.newRequestQueue(AddTour.this);
                     queue.add(zahtjevZaDodavanjeTure);
 

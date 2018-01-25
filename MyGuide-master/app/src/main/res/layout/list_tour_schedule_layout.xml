@@ -10,10 +10,13 @@
 
         <LinearLayout
             android:id="@+id/id_tourSchedule_layout"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="60dp"
+            android:paddingRight="60dp">
+
 
             <LinearLayout
                 android:layout_width="match_parent"

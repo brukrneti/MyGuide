@@ -19,14 +19,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@color/labelColor"
-            tools:text="Person(s)" />
+            android:text="Person(s)"
+            android:textColor="@color/labelColor" />
 
         <EditText
             android:id="@+id/etPerson"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:inputType="number"
             android:textColor="@color/colorTextDarkGrey" />
 
         <Button
@@ -36,9 +37,9 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:backgroundTint="@android:color/holo_red_light"
+            android:text="Submit"
             android:textAllCaps="false"
-            android:textColor="@color/colorText"
-            tools:text="Submit" />
+            android:textColor="@color/colorText" />
     </LinearLayout>
 
 

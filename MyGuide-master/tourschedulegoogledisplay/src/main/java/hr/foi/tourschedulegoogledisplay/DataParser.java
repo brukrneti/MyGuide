@@ -1,4 +1,4 @@
-package hr.foi.myguide;
+package hr.foi.tourschedulegoogledisplay;
 
 import java.util.HashMap;
 

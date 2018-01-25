@@ -18,9 +18,9 @@
             android:id="@+id/id_tourSchedule_layout"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:orientation="vertical"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="70dp"
+            android:layout_gravity="center|top"
             android:weightSum="1">
 
             <LinearLayout
@@ -131,22 +131,29 @@
                 android:id="@+id/dividerLine1"
                 style="@style/Divider" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/gMapsLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="300dp"
                 android:orientation="vertical">
 
 
-            </LinearLayout>
-            <fragment
-                android:id="@+id/gMapsFragment"
+                <FrameLayout
+                    android:id="@+id/fragment_container"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_height="match_parent"></FrameLayout>
+
+
+                <ImageView
+                    android:id="@+id/transparent_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@color/transparent" />
+            </RelativeLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_gravity="center"
-                class="com.google.android.gms.maps.SupportMapFragment"
-                tools:context="hr.foi.myguide.TourScheduleDetail"
-                />
+                android:layout_height="50dp"></LinearLayout>
 
         </LinearLayout>
 

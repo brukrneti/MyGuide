@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,11 +34,6 @@ public class Prijava extends AppCompatActivity implements  Serializable {
         final EditText etPassword= (EditText) findViewById(R.id.etPasswordLogin);
         final Button btnLogin = (Button) findViewById(R.id.btnLogin);
         final TextView tvSignUp = (TextView) findViewById(R.id.tvSignUp);
-
-        etUsername.setText("matkantoc");
-        etPassword.setText("matkantoc");
-
-
         final SessionManager sessionManager = new SessionManager(this);
 
         tvSignUp.setOnClickListener(new View.OnClickListener(){
@@ -92,6 +88,8 @@ public class Prijava extends AppCompatActivity implements  Serializable {
                     }
                 };
                 ZahtjevZaPrijavu zahtjevZaPrijavu = new ZahtjevZaPrijavu(username,password,responseListener);
+                zahtjevZaPrijavu.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 0,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 RequestQueue queue = Volley.newRequestQueue(Prijava.this);
                 queue.add(zahtjevZaPrijavu);
             }

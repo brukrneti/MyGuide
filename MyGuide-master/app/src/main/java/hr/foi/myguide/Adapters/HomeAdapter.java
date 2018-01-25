@@ -33,7 +33,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.TourViewHolder
     public void updateToursList(List<Tour> updatedList) {
         tourList.clear();
         tourList.addAll(updatedList);
-        this.notifyDataSetChanged();
+        this.notifyDataSetChanged(); //Notifies the attached observers that the underlying data has been changed and any View reflecting the data set should refresh itself.
     }
 
     public void setListener(TourAdapterListener listener) {

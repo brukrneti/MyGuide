@@ -25,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -56,8 +57,7 @@ import hr.foi.webservice.ZahtjevZaMjestoSastanka;
 import hr.foi.webservice.ZahtjevZaTermin;
 
 public class TourSchedule extends AppCompatActivity {
-    Button btnDateTimeFrom, btnSubmitSchedule;
-    Button btnDateTimeTo;
+    Button btnSubmitSchedule, btnDateTimeFrom, btnDateTimeTo;
     EditText etDateTimeFrom;
     EditText etDateTimeTo, etNote;
     Spinner locationSpinner;
@@ -85,6 +85,7 @@ public class TourSchedule extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         btnDateTimeFrom = (Button) findViewById(R.id.btnDateTimeFrom);
         btnDateTimeTo = (Button) findViewById(R.id.btnDateTimeTo);
+
         tour = getIntent().getParcelableExtra("PARCELABLE_OBJEKT");
         btnDateTimeFrom.setOnClickListener(new View.OnClickListener() {
             @Override

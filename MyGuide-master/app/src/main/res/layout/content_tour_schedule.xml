@@ -25,7 +25,8 @@
                 android:layout_marginTop="70dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:clickable="true">
 
                 <EditText
                     android:id="@+id/selectedDateTimeFrom"
@@ -52,13 +53,14 @@
                 android:layout_below="@id/linearLayoutDateFrom"
                 android:gravity="center"
                 android:orientation="horizontal"
+                android:clickable="true"
                 android:weightSum="1">
 
                 <EditText
+                    android:enabled="false"
                     android:id="@+id/selectedDateTimeTo"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
                     android:hint="Date to"
                     android:textColor="@color/colorTextDarkGrey" />
 
