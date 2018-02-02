@@ -1,7 +1,5 @@
 package hr.foi.myguide;
 
-import java.util.HashMap;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
