@@ -5,15 +5,16 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -48,6 +49,22 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
         final EditText etLastName = (EditText) findViewById(R.id.etLastNameReg);
         final EditText etUsername = (EditText) findViewById(R.id.etUsernameReg);
         final EditText etEmail = (EditText) findViewById(R.id.etEmailReg);
+        etEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!checkEmail(etEmail.getText().toString())){
+                    etEmail.setError("Incorrect email");
+                }
+            }
+        });
         final EditText etPassword = (EditText) findViewById(R.id.etPasswordReg) ;
         final Button btnRegister = (Button) findViewById(R.id.btnRegister);
         rg = (RadioGroup) findViewById(R.id.ergRadioGroup);
@@ -115,6 +132,11 @@ public class Registracija extends AppCompatActivity implements View.OnClickListe
         });
 
     }
+
+    public boolean checkEmail(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
     public void rbclick(View v){
         int radioButtonid = rg.getCheckedRadioButtonId();
         rb = (RadioButton) findViewById(radioButtonid);
