@@ -47,8 +47,14 @@ public class PocetnaStranica extends AppCompatActivity
                 final Korisnik loggedUser = sessionManager.retrieveUser();
 
                 FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-                fab.setVisibility(View.INVISIBLE);
-
+                //fab.setVisibility(View.INVISIBLE);
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(PocetnaStranica.this, AddFilter.class);
+                        PocetnaStranica.this.startActivity(intent);
+                    }
+                });
                 recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));

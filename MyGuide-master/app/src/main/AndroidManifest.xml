@@ -87,6 +87,10 @@
             android:name=".AddReservation"
             android:label="@string/title_activity_add_reservation"
             android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".AddFilter"
+            android:label="@string/title_activity_add_filter"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
