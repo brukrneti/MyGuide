@@ -21,6 +21,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by DudasPC on 01.02.2018..
@@ -72,17 +73,19 @@ public class PrijavaUITest {
 
     @Test
     public void buttonClicked() {
+        onView(withId(R.id.etUsernameLogin)).check(matches((isDisplayed())));
+        onView(withId(R.id.etUsernameLogin)).perform(clearText(),typeText("matkantoc"));
+        onView(withId(R.id.etPasswordLogin)).check(matches((isDisplayed())));
+        onView(withId(R.id.etPasswordLogin)).perform(clearText(),typeText("matkantoc"));
         onView(withId(R.id.btnLogin))
                 .perform(scrollTo())
                 .perform(longClick());
 
-        /*Intent intent = new Intent();
-        Instrumentation.ActivityResult intentResult = new Instrumentation.ActivityResult(Activity.RESULT_OK,intent);
+    }
 
-        intending(anyIntent()).respondWith(intentResult);
-
-        onView(withId(R.id.imageViewReg)).check(matches(isDisplayed())).perform(longClick());
-
-        intended(allOf(hasComponent(Registracija.class.getName())));*/
+    @Test
+    public void isNetworkConnected() throws Exception {
+        boolean actual = activityActivityTestRule.getActivity().isNetworkConnected();
+        assertEquals(true, actual);
     }
 }
