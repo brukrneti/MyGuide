@@ -8,7 +8,11 @@
     <RadioGroup
         android:id="@+id/RGroup"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="69dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
             android:id="@+id/radioButton"
@@ -16,7 +20,8 @@
             android:layout_height="40dp"
             android:layout_marginBottom="20dp"
             android:layout_marginStart="30dp"
-            android:text="RadioButton"
+            android:checked="true"
+            android:text="Ture u narednih mjesec dana"
             app:layout_constraintBottom_toTopOf="@+id/radioButton3"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -26,7 +31,7 @@
             android:layout_height="40dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:text="RadioButton"
+            android:text="Ture u Varaždinu"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioButton" />
 
@@ -36,7 +41,7 @@
             android:layout_height="32dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:text="RadioButton"
+            android:text="Ture u Čakovcu"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioButton3" />
 
@@ -46,7 +51,7 @@
             android:layout_height="36dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:text="RadioButton"
+            android:text="Ture s cijenom manjom od 200 kn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioButton4" />
     </RadioGroup>
@@ -55,9 +60,12 @@
         android:id="@+id/button2"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="55dp"
         android:background="@drawable/button_shape"
         android:text="OK"
         android:textAllCaps="false"
-        android:layout_marginTop="20dp"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

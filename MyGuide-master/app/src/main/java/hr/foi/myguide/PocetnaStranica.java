@@ -52,8 +52,13 @@ public class PocetnaStranica extends AppCompatActivity
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(PocetnaStranica.this, AddFilter.class);
-                        PocetnaStranica.this.startActivity(intent);
-                    }
+                        PocetnaStranica.this.startActivityForResult(intent, 1);
+
+                        //String filter = getIntent().getExtras().getString("mjesto");
+                        //Toast.makeText(PocetnaStranica.this,
+                               //filter, Toast.LENGTH_SHORT).show();
+
+                    };
                 });
                 recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
                 recyclerView.setHasFixedSize(true);
@@ -68,7 +73,6 @@ public class PocetnaStranica extends AppCompatActivity
                 recyclerView.setAdapter(adapter);
 
                 adapter.setListener(this);
-
 
 
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -139,6 +143,16 @@ public class PocetnaStranica extends AppCompatActivity
 
                 getMenuInflater().inflate(R.menu.pocetna_stranica, menu);
                 return true;
+            }
+            @Override
+            protected void onActivityResult(int requestCode,int resultCode, Intent data) {
+                if (requestCode == 1) {
+                    if (resultCode == RESULT_OK) {
+                    String filtar = data.getStringExtra("RESULT_STRING");
+                        Toast.makeText(PocetnaStranica.this,
+                                filtar, Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
 
 //            @Override
