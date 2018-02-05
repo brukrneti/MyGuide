@@ -185,26 +185,43 @@ public class Tour implements Parcelable{
         this.aktivan = aktivan;
     }
 
-    public void fetchTours(JSONArray jsonData) {
+    public void fetchTours(JSONArray jsonData, String filter) {
         for (int i = 0; i < jsonData.length(); i++) {
             //JSONObject currentRow = tours.getJSONObject(i).getInt("id_tura");
             JSONObject currentTour = null;
             try {
                 currentTour = jsonData.getJSONObject(i);
                 Tour tourInstance = new Tour();
-                tourInstance.id_tura = currentTour.getInt("id_tura");
-                tourInstance.naziv = currentTour.getString("naziv");
-                tourInstance.opis = currentTour.getString("opis");
-                tourInstance.cijena = currentTour.getDouble("cijena");
-                tourInstance.img_name = currentTour.getString("img_name");
-                tourInstance.img_path = currentTour.getString("img_path");
-                tourInstance.id_korisnik = currentTour.getInt("id_korisnik");
-                tourInstance.ime_vodica = currentTour.getString("ime_vodica");
-                tourInstance.prezime_vodica = currentTour.getString("prezime_vodica");
-                tourInstance.email_vodica = currentTour.getString("email_vodica");
-                tourInstance.aktivan = currentTour.getInt("aktivan");
+                if(filter == "All123") {
+                    tourInstance.id_tura = currentTour.getInt("id_tura");
+                    tourInstance.naziv = currentTour.getString("naziv");
+                    tourInstance.opis = currentTour.getString("opis");
+                    tourInstance.cijena = currentTour.getDouble("cijena");
+                    tourInstance.img_name = currentTour.getString("img_name");
+                    tourInstance.img_path = currentTour.getString("img_path");
+                    tourInstance.id_korisnik = currentTour.getInt("id_korisnik");
+                    tourInstance.ime_vodica = currentTour.getString("ime_vodica");
+                    tourInstance.prezime_vodica = currentTour.getString("prezime_vodica");
+                    tourInstance.email_vodica = currentTour.getString("email_vodica");
+                    tourInstance.aktivan = currentTour.getInt("aktivan");
 
-                toursList.add(tourInstance);
+                    toursList.add(tourInstance);
+                }
+                if(currentTour.getString("opis").contains(filter) || currentTour.getString("naziv").contains(filter)) {
+                    tourInstance.id_tura = currentTour.getInt("id_tura");
+                    tourInstance.naziv = currentTour.getString("naziv");
+                    tourInstance.opis = currentTour.getString("opis");
+                    tourInstance.cijena = currentTour.getDouble("cijena");
+                    tourInstance.img_name = currentTour.getString("img_name");
+                    tourInstance.img_path = currentTour.getString("img_path");
+                    tourInstance.id_korisnik = currentTour.getInt("id_korisnik");
+                    tourInstance.ime_vodica = currentTour.getString("ime_vodica");
+                    tourInstance.prezime_vodica = currentTour.getString("prezime_vodica");
+                    tourInstance.email_vodica = currentTour.getString("email_vodica");
+                    tourInstance.aktivan = currentTour.getInt("aktivan");
+
+                    toursList.add(tourInstance);
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();

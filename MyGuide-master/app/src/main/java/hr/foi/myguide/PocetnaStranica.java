@@ -38,6 +38,7 @@ public class PocetnaStranica extends AppCompatActivity
             implements TourAdapterListener, NavigationView.OnNavigationItemSelectedListener {
             RecyclerView recyclerView;
             List<Tour> listTour;
+            public String filter = "All123";
             @Override
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
@@ -53,13 +54,9 @@ public class PocetnaStranica extends AppCompatActivity
                     public void onClick(View view) {
                         Intent intent = new Intent(PocetnaStranica.this, AddFilter.class);
                         PocetnaStranica.this.startActivityForResult(intent, 1);
-
-                        //String filter = getIntent().getExtras().getString("mjesto");
-                        //Toast.makeText(PocetnaStranica.this,
-                               //filter, Toast.LENGTH_SHORT).show();
-
                     };
                 });
+
                 recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -86,8 +83,10 @@ public class PocetnaStranica extends AppCompatActivity
                                 if (success) {
                                     JSONArray tours = dataJSON.getJSONArray("rows");
                                     Tour tourInstance = new Tour();
-                                    tourInstance.fetchTours(tours);
+                                    tourInstance.fetchTours(tours, filter);
                                     adapter.updateToursList(tourInstance.toursList);
+
+
                                 } else {
                                 }
                             } catch (JSONException e) {
@@ -148,12 +147,94 @@ public class PocetnaStranica extends AppCompatActivity
             protected void onActivityResult(int requestCode,int resultCode, Intent data) {
                 if (requestCode == 1) {
                     if (resultCode == RESULT_OK) {
-                    String filtar = data.getStringExtra("RESULT_STRING");
+                        filter = data.getStringExtra("RESULT_STRING");
                         Toast.makeText(PocetnaStranica.this,
-                                filtar, Toast.LENGTH_SHORT).show();
+                                filter, Toast.LENGTH_SHORT).show();
                     }
                 }
+                setContentView(R.layout.activity_pocetna_stranica);
+                SessionManager sessionManager = new SessionManager(this);
+
+                final Korisnik loggedUser = sessionManager.retrieveUser();
+
+                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                //fab.setVisibility(View.INVISIBLE);
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(PocetnaStranica.this, AddFilter.class);
+                        PocetnaStranica.this.startActivityForResult(intent, 1);
+                    };
+                });
+
+                recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+                listTour = new ArrayList<>();
+
+                //creating recyclerview adapter
+                final TourAdapter adapter = new TourAdapter(this, listTour);
+
+                //setting adapter to recyclerview
+                recyclerView.setAdapter(adapter);
+
+                adapter.setListener(this);
+
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            JSONObject dataJSON = jsonResponse.getJSONObject("data");
+                            boolean success = dataJSON.getBoolean("success");
+                            Integer idUserType = loggedUser.getId_tip_korisnika();
+                            if (success) {
+                                JSONArray tours = dataJSON.getJSONArray("rows");
+                                Tour tourInstance = new Tour();
+                                tourInstance.fetchTours(tours, filter);
+                                adapter.updateToursList(tourInstance.toursList);
+
+
+                            } else {
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                ZahtjevZaTuru zahtjevZaTuru = new ZahtjevZaTuru(responseListener);
+                RequestQueue queue = Volley.newRequestQueue(PocetnaStranica.this);
+                queue.add(zahtjevZaTuru);
+
+                Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+                setSupportActionBar(toolbar);
+                getSupportActionBar().setTitle("Home");
+
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                drawer.setDrawerListener(toggle);
+                toggle.syncState();
+
+                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                navigationView.setNavigationItemSelectedListener(this);
+                Menu menu =navigationView.getMenu();
+                menu.getItem(0).setChecked(true);
+                if(loggedUser.getId_tip_korisnika()==2){
+                    MenuItem confirm = menu.findItem(R.id.nav_confirmRes);
+                    MenuItem myTours = menu.findItem(R.id.nav_myTours);
+                    confirm.setVisible(false);
+                    myTours.setVisible(false);
+                }
+                if(loggedUser.getId_tip_korisnika()==1){
+                    MenuItem reservation = menu.findItem(R.id.nav_reservation);
+                    reservation.setVisible(false);
+
+                }
             }
+
 
 //            @Override
 //            public boolean onOptionsItemSelected(MenuItem item) {
