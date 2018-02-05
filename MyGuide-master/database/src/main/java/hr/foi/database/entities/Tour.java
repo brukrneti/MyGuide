@@ -192,7 +192,7 @@ public class Tour implements Parcelable{
             try {
                 currentTour = jsonData.getJSONObject(i);
                 Tour tourInstance = new Tour();
-                if (filter == "All123" && price == 1.0) {
+                if (filter.equals("All123")) {
                     tourInstance.id_tura = currentTour.getInt("id_tura");
                     tourInstance.naziv = currentTour.getString("naziv");
                     tourInstance.opis = currentTour.getString("opis");
@@ -207,7 +207,7 @@ public class Tour implements Parcelable{
 
                     toursList.add(tourInstance);
                 }
-                if (filter == "Ignore123" && price > 1.0) {
+                if (filter.equals("Ignore123")) {
                     if (currentTour.getDouble("cijena") < price) {
                         tourInstance.id_tura = currentTour.getInt("id_tura");
                         tourInstance.naziv = currentTour.getString("naziv");

@@ -150,13 +150,9 @@ public class PocetnaStranica extends AppCompatActivity
                     if (resultCode == RESULT_OK) {
                         filter = data.getStringExtra("RESULT_STRING");
                         price = data.getDoubleExtra("RESULT_PRICE", 1.0);
-                        Toast.makeText(this, filter + price.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
                 setContentView(R.layout.activity_pocetna_stranica);
-                SessionManager sessionManager = new SessionManager(this);
-
-                final Korisnik loggedUser = sessionManager.retrieveUser();
 
                 FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
                 //fab.setVisibility(View.INVISIBLE);
@@ -190,7 +186,6 @@ public class PocetnaStranica extends AppCompatActivity
                             JSONObject jsonResponse = new JSONObject(response);
                             JSONObject dataJSON = jsonResponse.getJSONObject("data");
                             boolean success = dataJSON.getBoolean("success");
-                            Integer idUserType = loggedUser.getId_tip_korisnika();
                             if (success) {
                                 JSONArray tours = dataJSON.getJSONArray("rows");
                                 Tour tourInstance = new Tour();
@@ -223,17 +218,6 @@ public class PocetnaStranica extends AppCompatActivity
                 navigationView.setNavigationItemSelectedListener(this);
                 Menu menu =navigationView.getMenu();
                 menu.getItem(0).setChecked(true);
-                if(loggedUser.getId_tip_korisnika()==2){
-                    MenuItem confirm = menu.findItem(R.id.nav_confirmRes);
-                    MenuItem myTours = menu.findItem(R.id.nav_myTours);
-                    confirm.setVisible(false);
-                    myTours.setVisible(false);
-                }
-                if(loggedUser.getId_tip_korisnika()==1){
-                    MenuItem reservation = menu.findItem(R.id.nav_reservation);
-                    reservation.setVisible(false);
-
-                }
             }
 
 
