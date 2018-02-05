@@ -74,7 +74,7 @@ public class MyTour extends AppCompatActivity implements TourAdapterListener {
                     if (success) {
                         JSONArray tours = dataJSON.getJSONArray("rows");
                         Tour tourInstance = new Tour();
-                        tourInstance.fetchTours(tours, "All123");
+                        tourInstance.fetchTours(tours, "All123", 1.0);
                         adapter.updateToursList(tourInstance.toursList);
 
 

@@ -39,6 +39,7 @@ public class PocetnaStranica extends AppCompatActivity
             RecyclerView recyclerView;
             List<Tour> listTour;
             public String filter = "All123";
+            public Double price = 1.0;
             @Override
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
@@ -83,7 +84,7 @@ public class PocetnaStranica extends AppCompatActivity
                                 if (success) {
                                     JSONArray tours = dataJSON.getJSONArray("rows");
                                     Tour tourInstance = new Tour();
-                                    tourInstance.fetchTours(tours, filter);
+                                    tourInstance.fetchTours(tours, filter, price);
                                     adapter.updateToursList(tourInstance.toursList);
 
 
@@ -148,8 +149,8 @@ public class PocetnaStranica extends AppCompatActivity
                 if (requestCode == 1) {
                     if (resultCode == RESULT_OK) {
                         filter = data.getStringExtra("RESULT_STRING");
-                        Toast.makeText(PocetnaStranica.this,
-                                filter, Toast.LENGTH_SHORT).show();
+                        price = data.getDoubleExtra("RESULT_PRICE", 1.0);
+                        Toast.makeText(this, filter + price.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
                 setContentView(R.layout.activity_pocetna_stranica);
@@ -193,7 +194,7 @@ public class PocetnaStranica extends AppCompatActivity
                             if (success) {
                                 JSONArray tours = dataJSON.getJSONArray("rows");
                                 Tour tourInstance = new Tour();
-                                tourInstance.fetchTours(tours, filter);
+                                tourInstance.fetchTours(tours, filter, price);
                                 adapter.updateToursList(tourInstance.toursList);
 
 
